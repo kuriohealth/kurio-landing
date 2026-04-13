@@ -1,0 +1,59 @@
+---
+---
+
+<section class="pt-32 pb-20 px-6">
+  <div class="max-w-4xl mx-auto text-center">
+    <!-- Rotating headline -->
+    <div class="h-16 sm:h-20 flex items-center justify-center mb-6">
+      <h1
+        id="hero-headline"
+        class="text-4xl sm:text-5xl lg:text-6xl font-bold text-zinc-900 transition-opacity duration-500"
+      >
+        Menos rechazos
+      </h1>
+    </div>
+
+    <!-- Subtitle -->
+    <p class="text-lg sm:text-xl text-zinc-500 max-w-2xl mx-auto mb-10 leading-relaxed">
+      Kurio es el agente de autorizaciones de tu hospital — conoce los requisitos
+      de cada aseguradora y ayuda a tu equipo a enviar cada caso correctamente
+      desde la primera vez.
+    </p>
+
+    <!-- CTAs -->
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a
+        href="https://app.kurio.health/login"
+        class="w-full sm:w-auto text-center px-8 py-3 text-sm font-medium border border-zinc-300 text-zinc-700 rounded-lg hover:bg-zinc-50 transition-colors"
+      >
+        Iniciar sesion
+      </a>
+      <a
+        href="#solicitar-acceso"
+        class="w-full sm:w-auto text-center px-8 py-3 text-sm font-medium bg-zinc-900 text-white rounded-lg hover:bg-zinc-800 transition-colors"
+      >
+        Solicitar acceso
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  const headlines = [
+    "Menos rechazos",
+    "Mas autorizaciones aprobadas",
+    "Cobros mas rapidos",
+  ];
+  let current = 0;
+  const el = document.getElementById("hero-headline");
+
+  setInterval(() => {
+    if (!el) return;
+    el.style.opacity = "0";
+    setTimeout(() => {
+      current = (current + 1) % headlines.length;
+      el.textContent = headlines[current];
+      el.style.opacity = "1";
+    }, 400);
+  }, 3000);
+</script>

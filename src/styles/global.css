@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: #ffffff;
+  --color-foreground: #171717;
+  --color-kurio-50: #f0f7ff;
+  --color-kurio-100: #e0efff;
+  --color-kurio-500: #3b82f6;
+  --color-kurio-600: #2563eb;
+  --color-kurio-700: #1d4ed8;
+  --font-sans: "Geist", system-ui, -apple-system, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

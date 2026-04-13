@@ -1,0 +1,109 @@
+---
+const tabs = [
+  {
+    id: "organiza",
+    title: "Organiza el expediente",
+    description: "Checklist dinamico generado automaticamente segun los requisitos de cada aseguradora.",
+  },
+  {
+    id: "verifica",
+    title: "Verifica con AI",
+    description: "El agente extrae informacion de los documentos, clasifica cada uno, y detecta lo que falta.",
+  },
+  {
+    id: "envia",
+    title: "Envia con confianza",
+    description: "Confirmacion de que todo esta en orden antes de enviar a la aseguradora.",
+  },
+  {
+    id: "seguimiento",
+    title: "Da seguimiento",
+    description: "Trazabilidad del estado de la autorizacion hasta el cobro.",
+  },
+];
+---
+
+<section class="py-20 px-6">
+  <div class="max-w-5xl mx-auto">
+    <h2 class="text-3xl font-bold text-zinc-900 text-center mb-4">
+      Como funciona
+    </h2>
+    <p class="text-center text-zinc-500 mb-12 max-w-2xl mx-auto">
+      Desde la organizacion del expediente hasta el seguimiento de la autorizacion,
+      Kurio guia cada paso.
+    </p>
+
+    <!-- Tabs -->
+    <div class="flex flex-wrap justify-center gap-2 mb-10" id="tabs-container">
+      {tabs.map((tab, i) => (
+        <button
+          data-tab={tab.id}
+          class:list={[
+            "tab-btn px-4 py-2 text-sm font-medium rounded-lg transition-colors",
+            i === 0
+              ? "bg-zinc-900 text-white"
+              : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200",
+          ]}
+        >
+          {tab.title}
+        </button>
+      ))}
+    </div>
+
+    <!-- Tab content -->
+    <div class="relative">
+      {tabs.map((tab, i) => (
+        <div
+          data-panel={tab.id}
+          class:list={[
+            "tab-panel transition-opacity duration-300",
+            i === 0 ? "block opacity-100" : "hidden opacity-0",
+          ]}
+        >
+          <div class="bg-zinc-50 rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8">
+            <!-- Placeholder for screenshot -->
+            <div class="w-full md:w-1/2 aspect-video bg-zinc-200 rounded-xl flex items-center justify-center">
+              <span class="text-zinc-400 text-sm">Screenshot: {tab.title}</span>
+            </div>
+
+            <!-- Description -->
+            <div class="w-full md:w-1/2">
+              <h3 class="text-xl font-semibold text-zinc-900 mb-3">{tab.title}</h3>
+              <p class="text-zinc-500 leading-relaxed">{tab.description}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>(".tab-btn");
+  const panels = document.querySelectorAll<HTMLDivElement>(".tab-panel");
+
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const target = btn.dataset.tab;
+
+      // Update buttons
+      buttons.forEach((b) => {
+        b.classList.remove("bg-zinc-900", "text-white");
+        b.classList.add("bg-zinc-100", "text-zinc-600");
+      });
+      btn.classList.remove("bg-zinc-100", "text-zinc-600");
+      btn.classList.add("bg-zinc-900", "text-white");
+
+      // Update panels
+      panels.forEach((p) => {
+        if (p.dataset.panel === target) {
+          p.classList.remove("hidden", "opacity-0");
+          p.classList.add("block", "opacity-100");
+        } else {
+          p.classList.add("hidden", "opacity-0");
+          p.classList.remove("block", "opacity-100");
+        }
+      });
+    });
+  });
+</script>
