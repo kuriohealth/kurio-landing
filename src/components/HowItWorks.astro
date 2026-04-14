@@ -4,21 +4,25 @@ const tabs = [
     id: "organiza",
     title: "Organiza el expediente",
     description: "Checklist dinamico generado automaticamente segun los requisitos de cada aseguradora.",
+    image: "/images/organiza.png",
   },
   {
     id: "verifica",
     title: "Verifica con AI",
     description: "El agente extrae informacion de los documentos, clasifica cada uno, y detecta lo que falta.",
+    image: "/images/verifica.png",
   },
   {
     id: "envia",
     title: "Envia con confianza",
     description: "Confirmacion de que todo esta en orden antes de enviar a la aseguradora.",
+    image: "/images/envia.png",
   },
   {
     id: "seguimiento",
     title: "Da seguimiento",
     description: "Trazabilidad del estado de la autorizacion hasta el cobro.",
+    image: "/images/seguimiento.png",
   },
 ];
 ---
@@ -61,9 +65,13 @@ const tabs = [
           ]}
         >
           <div class="bg-zinc-50 rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8">
-            <!-- Placeholder for screenshot -->
-            <div class="w-full md:w-1/2 aspect-video bg-zinc-200 rounded-xl flex items-center justify-center">
-              <span class="text-zinc-400 text-sm">Screenshot: {tab.title}</span>
+            <div class="w-full md:w-1/2">
+              <img
+                src={tab.image}
+                alt={tab.title}
+                class="w-full rounded-xl"
+                loading="lazy"
+              />
             </div>
 
             <!-- Description -->
