@@ -1,27 +1,32 @@
 ---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
 const tabs = [
   {
     id: "organiza",
-    title: "Organiza el expediente",
-    description: "Checklist dinamico generado automaticamente segun los requisitos de cada aseguradora.",
+    title: t("how.tab1.title"),
+    description: t("how.tab1.body"),
     image: "/images/organiza.png",
   },
   {
     id: "verifica",
-    title: "Verifica con AI",
-    description: "El agente extrae informacion de los documentos, clasifica cada uno, y detecta lo que falta.",
+    title: t("how.tab2.title"),
+    description: t("how.tab2.body"),
     image: "/images/verifica.png",
   },
   {
     id: "envia",
-    title: "Envia con confianza",
-    description: "Confirmacion de que todo esta en orden antes de enviar a la aseguradora.",
+    title: t("how.tab3.title"),
+    description: t("how.tab3.body"),
     image: "/images/envia.png",
   },
   {
     id: "seguimiento",
-    title: "Da seguimiento",
-    description: "Trazabilidad del estado de la autorizacion hasta el cobro.",
+    title: t("how.tab4.title"),
+    description: t("how.tab4.body"),
     image: "/images/seguimiento.png",
   },
 ];
@@ -30,11 +35,10 @@ const tabs = [
 <section class="py-20 px-6">
   <div class="max-w-5xl mx-auto">
     <h2 class="text-3xl font-bold text-zinc-900 text-center mb-4">
-      Como funciona
+      {t("how.title")}
     </h2>
     <p class="text-center text-zinc-500 mb-12 max-w-2xl mx-auto">
-      Desde la organizacion del expediente hasta el seguimiento de la autorizacion,
-      Kurio guia cada paso.
+      {t("how.subtitle")}
     </p>
 
     <!-- Tabs -->

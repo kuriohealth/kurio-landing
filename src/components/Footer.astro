@@ -1,4 +1,9 @@
 ---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
 const year = new Date().getFullYear();
 ---
 
@@ -6,14 +11,14 @@ const year = new Date().getFullYear();
   <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
     <div class="flex items-center gap-2">
       <img src="/images/icon.png" alt="Kurio" class="h-6 w-6" />
-      <span class="text-sm text-zinc-500">&copy; {year} Kurio. Todos los derechos reservados.</span>
+      <span class="text-sm text-zinc-500">&copy; {year} Kurio. {t("footer.rights")}</span>
     </div>
     <div class="flex items-center gap-6">
       <a href="https://app.kurio.health/login" class="text-sm text-zinc-500 hover:text-zinc-900 transition-colors">
-        Iniciar sesion
+        {t("nav.login")}
       </a>
       <a href="#solicitar-acceso" class="text-sm text-zinc-500 hover:text-zinc-900 transition-colors">
-        Solicitar acceso
+        {t("nav.request")}
       </a>
     </div>
   </div>

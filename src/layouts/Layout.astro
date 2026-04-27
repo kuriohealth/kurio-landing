@@ -1,19 +1,28 @@
 ---
+import { getLangFromUrl, useTranslations, getLocalizedPath } from "../i18n/utils";
+
 interface Props {
   title?: string;
   description?: string;
 }
 
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
 const {
-  title = "Kurio — Agente de autorizaciones para hospitales",
-  description = "Kurio ayuda a tu hospital a enviar autorizaciones completas a cada aseguradora desde la primera vez. Menos rechazos, cobro mas rapido.",
+  title = t("meta.title"),
+  description = t("meta.description"),
 } = Astro.props;
 
-const ogImage = new URL("/images/icon.png", Astro.site || "https://kurio.health").href;
+const site = Astro.site?.toString() || "https://kurio.health";
+const ogImage = new URL("/images/icon.png", site).href;
+const canonicalUrl = new URL(Astro.url.pathname, site).href;
+const altEsUrl = new URL(getLocalizedPath(Astro.url.pathname, "es"), site).href;
+const altEnUrl = new URL(getLocalizedPath(Astro.url.pathname, "en"), site).href;
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -23,16 +32,19 @@ const ogImage = new URL("/images/icon.png", Astro.site || "https://kurio.health"
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://kurio.health" />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang="es" href={altEsUrl} />
+    <link rel="alternate" hreflang="en" href={altEnUrl} />
+    <link rel="alternate" hreflang="x-default" href={altEsUrl} />
 
     <!-- Open Graph (WhatsApp, LinkedIn, Facebook) -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:url" content="https://kurio.health" />
+    <meta property="og:url" content={canonicalUrl} />
     <meta property="og:site_name" content="Kurio" />
-    <meta property="og:locale" content="es_GT" />
+    <meta property="og:locale" content={t("meta.locale")} />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -45,7 +57,7 @@ const ogImage = new URL("/images/icon.png", Astro.site || "https://kurio.health"
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": "Kurio",
-      "url": "https://kurio.health",
+      "url": site,
       "description": description,
       "logo": ogImage,
     })} />
