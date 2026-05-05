@@ -68,6 +68,14 @@ const altEnUrl = new URL(getLocalizedPath(Astro.url.pathname, "en"), site).href;
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   </head>
   <body class="antialiased">
+    <!-- PostHog -->
+    <script>
+      import posthog from "posthog-js";
+      posthog.init(import.meta.env.PUBLIC_POSTHOG_KEY, {
+        api_host: import.meta.env.PUBLIC_POSTHOG_HOST,
+        person_profiles: "identified_only",
+      });
+    </script>
     <slot />
   </body>
 </html>
