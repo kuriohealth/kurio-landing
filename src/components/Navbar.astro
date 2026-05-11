@@ -1,6 +1,7 @@
 ---
 import { getLangFromUrl, useTranslations } from "../i18n/utils";
 import LanguageToggle from "./LanguageToggle.astro";
+import KurioLupa from "./KurioLupa.astro";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -9,9 +10,10 @@ const homePath = lang === "es" ? "/" : "/en/";
 
 <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-zinc-200">
   <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-    <!-- Logo -->
+    <!-- Logo — static lupa (brand mark). The animated, state-driven
+         version of the lupa lives in the main app where the agent runs. -->
     <a href={homePath} class="flex items-center gap-2">
-      <img src="/images/icon.png" alt="Kurio" class="h-8 w-8" />
+      <KurioLupa size={32} />
       <span class="text-xl font-semibold text-zinc-900">Kurio</span>
     </a>
 
