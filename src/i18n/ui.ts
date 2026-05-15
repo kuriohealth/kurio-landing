@@ -12,7 +12,7 @@ export const ui = {
     // Layout / SEO
     "meta.title": "Kurio | Agente de autorizaciones para hospitales",
     "meta.description":
-      "Kurio ayuda a tu hospital a enviar autorizaciones completas a cada aseguradora desde la primera vez. Menos rechazos, cobro más rápido.",
+      "Kurio ayuda a tu hospital a enviar autorizaciones completas a cada aseguradora desde la primera vez. Más aprobaciones, ciclo de autorización más corto.",
     "meta.locale": "es_GT",
 
     // Navbar / Footer common
@@ -20,19 +20,19 @@ export const ui = {
     "nav.request": "Solicitar acceso",
 
     // Hero
-    "hero.headline.0": "Menos rechazos",
-    "hero.headline.1": "Más autorizaciones aprobadas",
-    "hero.headline.2": "Cobros más rápidos",
+    "hero.headline.0": "Aprobaciones desde la primera vez",
+    "hero.headline.1": "Más autorizaciones completas",
+    "hero.headline.2": "Ciclo de autorización más corto",
     "hero.subtitle":
       "Kurio es el agente de autorizaciones de tu hospital. Conoce los requisitos de cada aseguradora y ayuda a tu equipo a enviar cada caso correctamente desde la primera vez.",
 
     // Results
     "results.intro":
-      "Los hospitales que gestionan bien sus autorizaciones cobran más rápido y con menos fricción.",
-    "results.card1.title": "Menos rechazos",
+      "Los hospitales que gestionan bien sus autorizaciones reducen el tiempo entre atención y autorización, con menos fricción para todos los involucrados.",
+    "results.card1.title": "Solicitudes completas",
     "results.card1.body":
       "Cada solicitud sale completa y con lo que la aseguradora necesita.",
-    "results.card2.title": "Cobro más rápido",
+    "results.card2.title": "Ciclo más corto",
     "results.card2.body": "Menos tiempo entre atención y autorización.",
     "results.card3.title": "Visibilidad total",
     "results.card3.body":
@@ -75,7 +75,7 @@ export const ui = {
     // Layout / SEO
     "meta.title": "Kurio | Authorizations agent for hospitals",
     "meta.description":
-      "Kurio helps your hospital submit complete authorizations to every insurer from the first try. Fewer denials, faster reimbursement.",
+      "Kurio helps your hospital submit complete authorizations to every insurer from the first try. More approvals, shorter authorization cycle.",
     "meta.locale": "en_US",
 
     // Navbar / Footer common
@@ -83,19 +83,19 @@ export const ui = {
     "nav.request": "Request access",
 
     // Hero
-    "hero.headline.0": "Fewer denials",
-    "hero.headline.1": "More approvals",
-    "hero.headline.2": "Faster reimbursement",
+    "hero.headline.0": "First-time approvals",
+    "hero.headline.1": "More complete submissions",
+    "hero.headline.2": "Shorter authorization cycle",
     "hero.subtitle":
       "Kurio is your hospital's authorizations agent. It knows each insurer's requirements and helps your team submit every case right the first time.",
 
     // Results
     "results.intro":
-      "Hospitals that handle authorizations well get paid faster and with less friction.",
-    "results.card1.title": "Fewer denials",
+      "Hospitals that handle authorizations well reduce the time between care and authorization, with less friction for everyone involved.",
+    "results.card1.title": "Complete submissions",
     "results.card1.body":
       "Every submission goes out complete with what the insurer needs.",
-    "results.card2.title": "Faster reimbursement",
+    "results.card2.title": "Shorter cycle",
     "results.card2.body":
       "Less time between care delivered and authorization received.",
     "results.card3.title": "Full visibility",
