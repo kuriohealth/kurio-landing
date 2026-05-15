@@ -14,27 +14,35 @@ const t = useTranslations(lang);
       {t("lead.subtitle")}
     </p>
 
-    <!-- Tally form embed -->
+    <!-- Tally form embed — height is driven by Tally's embed.js postMessage
+         resize via dynamicHeight=1; the inline height is just a first-paint
+         placeholder so layout doesn't jump before the script runs. -->
     <div class="bg-zinc-50 rounded-2xl p-8 border border-zinc-200">
       <iframe
-        data-tally-src="https://tally.so/embed/ja74G4?alignLeft=1&hideTitle=1&transparentBackground=1"
+        data-tally-src="https://tally.so/embed/ja74G4?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
         loading="lazy"
         width="100%"
-        height="400"
+        height="276"
         frameborder="0"
         marginheight="0"
         marginwidth="0"
         title={t("lead.iframeTitle")}
-        class="rounded-lg"
+        class="tally-iframe block w-full rounded-lg"
       ></iframe>
-      <script src="https://tally.so/widgets/embed.js"></script>
+      <script async src="https://tally.so/widgets/embed.js"></script>
 
-      <!-- Fallback until Tally form is created -->
       <noscript>
         <p class="text-zinc-500">
           {t("lead.noscript")} <a href="mailto:hello@kurio.health" class="text-zinc-900 underline">hello@kurio.health</a>
         </p>
       </noscript>
     </div>
+
+    <style>
+      .tally-iframe {
+        height: auto;
+        min-height: 276px;
+      }
+    </style>
   </div>
 </section>

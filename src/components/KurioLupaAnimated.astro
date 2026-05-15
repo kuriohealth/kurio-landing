@@ -1,0 +1,120 @@
+---
+/**
+ * Animated counterpart to KurioLupa. Same SVG silhouette and brand color,
+ * with two motion modes:
+ *
+ *   mode="loop"                  → continuous idle → scanning → found cycle.
+ *   mode="scanning-on-viewport"  → scans only while the element is intersecting
+ *                                  the viewport (cheap IntersectionObserver gate).
+ *
+ * Animations respect prefers-reduced-motion (collapses to a static lupa).
+ * Uses CSS transforms only — no layout thrash.
+ */
+export interface Props {
+  size?: number;
+  class?: string;
+  mode?: "loop" | "scanning-on-viewport";
+  loopDurationSeconds?: number;
+}
+
+const {
+  size = 32,
+  class: className = "",
+  mode = "loop",
+  loopDurationSeconds = 6,
+} = Astro.props;
+---
+
+<span
+  class:list={["kurio-lupa-animated", `mode-${mode}`, className]}
+  style={`width: ${size}px; height: ${size}px; --lupa-loop-duration: ${loopDurationSeconds}s;`}
+  data-mode={mode}
+  role="img"
+  aria-label="Kurio"
+>
+  <svg
+    viewBox="0 0 32 32"
+    fill="none"
+    width={size}
+    height={size}
+    aria-hidden="true"
+  >
+    <circle cx="13" cy="13" r="9" stroke="currentColor" stroke-width="2.2" />
+    <line
+      x1="20"
+      y1="20"
+      x2="27"
+      y2="27"
+      stroke="currentColor"
+      stroke-width="2.2"
+      stroke-linecap="round"
+    />
+  </svg>
+</span>
+
+<style>
+  .kurio-lupa-animated {
+    display: inline-block;
+    color: #6D4FE8;
+    flex-shrink: 0;
+    line-height: 0;
+  }
+  .kurio-lupa-animated svg {
+    display: block;
+    transform-origin: 13px 13px;
+    will-change: transform;
+  }
+
+  /* mode-loop: idle → scanning → found → return */
+  .kurio-lupa-animated.mode-loop svg {
+    animation: kurio-lupa-loop var(--lupa-loop-duration, 6s) ease-in-out infinite;
+  }
+
+  @keyframes kurio-lupa-loop {
+    0%   { transform: translate(0, 0) scale(1); }
+    15%  { transform: translate(0, 0) scale(1); }
+    /* scanning */
+    30%  { transform: translate(-2.5px, -1px) scale(1.03); }
+    45%  { transform: translate(2.5px, 1px) scale(1.03); }
+    60%  { transform: translate(-1.5px, 1px) scale(1.03); }
+    /* found */
+    72%  { transform: translate(0, 0) scale(1.14); }
+    82%  { transform: translate(0, 0) scale(1.14); }
+    /* return */
+    100% { transform: translate(0, 0) scale(1); }
+  }
+
+  /* mode-scanning-on-viewport: short repeating scan, only when .is-scanning is on */
+  .kurio-lupa-animated.mode-scanning-on-viewport.is-scanning svg {
+    animation: kurio-lupa-scanning 2.4s ease-in-out infinite;
+  }
+
+  @keyframes kurio-lupa-scanning {
+    0%, 100% { transform: translate(-2px, 0) scale(1); }
+    50%      { transform: translate(2px, 0) scale(1.04); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .kurio-lupa-animated svg {
+      animation: none !important;
+      transform: none !important;
+    }
+  }
+</style>
+
+<script>
+  const targets = document.querySelectorAll<HTMLElement>(
+    ".kurio-lupa-animated.mode-scanning-on-viewport"
+  );
+  if (targets.length && typeof IntersectionObserver !== "undefined") {
+    const obs = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          entry.target.classList.toggle("is-scanning", entry.isIntersecting);
+        }
+      },
+      { threshold: 0.3 }
+    );
+    targets.forEach((el) => obs.observe(el));
+  }
+</script>

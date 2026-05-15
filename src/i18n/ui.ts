@@ -20,23 +20,24 @@ export const ui = {
     "nav.request": "Solicitar acceso",
 
     // Hero
-    "hero.headline.0": "Aprobaciones desde la primera vez",
-    "hero.headline.1": "Más autorizaciones completas",
-    "hero.headline.2": "Ciclo de autorización más corto",
+    "hero.headline.0": "Expedientes completos a la primera",
+    "hero.headline.1": "Cada caso con su próximo paso claro",
+    "hero.headline.2": "Visibilidad financiera en tiempo real",
     "hero.subtitle":
       "Kurio es el agente de autorizaciones de tu hospital. Conoce los requisitos de cada aseguradora y ayuda a tu equipo a enviar cada caso correctamente desde la primera vez.",
 
     // Results
     "results.intro":
       "Los hospitales que gestionan bien sus autorizaciones reducen el tiempo entre atención y autorización, con menos fricción para todos los involucrados.",
-    "results.card1.title": "Solicitudes completas",
+    "results.card1.title": "Cada aseguradora pide distinto",
     "results.card1.body":
-      "Cada solicitud sale completa y con lo que la aseguradora necesita.",
-    "results.card2.title": "Ciclo más corto",
-    "results.card2.body": "Menos tiempo entre atención y autorización.",
-    "results.card3.title": "Visibilidad total",
+      "Kurio sabe qué documentos, qué formatos y qué detalles espera cada aseguradora, y construye el expediente acorde.",
+    "results.card2.title": "Sabés qué falta en cada caso",
+    "results.card2.body":
+      "Cada expediente muestra el próximo paso: qué documento subir, qué dato corregir, qué espera la aseguradora. Tu equipo nunca pierde un caso en el camino.",
+    "results.card3.title": "Del envío al cobro, en una sola vista",
     "results.card3.body":
-      "Estado en tiempo real de cada caso, sin perseguir información.",
+      "Estado de cada caso, monto autorizado, ajustes y plazos de pago — sin perseguir información entre planillas.",
 
     // HowItWorks
     "how.title": "Cómo funciona",
@@ -45,9 +46,9 @@ export const ui = {
     "how.tab1.title": "Organiza el expediente",
     "how.tab1.body":
       "Checklist dinámico generado automáticamente según los requisitos de cada aseguradora.",
-    "how.tab2.title": "Verifica con AI",
+    "how.tab2.title": "Verifica contra cada aseguradora",
     "how.tab2.body":
-      "El agente extrae información de los documentos, clasifica cada uno, y detecta lo que falta.",
+      "Kurio clasifica los documentos, extrae los datos clave y detecta lo que falta según los requisitos específicos de la aseguradora del caso.",
     "how.tab3.title": "Envía con confianza",
     "how.tab3.body":
       "Confirmación de que todo está en orden antes de enviar a la aseguradora.",
@@ -61,7 +62,8 @@ export const ui = {
 
     // LeadCapture
     "lead.title": "¿Quieres ver cómo funciona con tus propias aseguradoras?",
-    "lead.subtitle": "Agenda una demo personalizada para tu hospital.",
+    "lead.subtitle":
+      "Agenda una demo personalizada para tu hospital. Te mostramos cómo se ven tus aseguradoras dentro del sistema.",
     "lead.iframeTitle": "Solicitar acceso a Kurio",
     "lead.noscript": "Escríbenos a",
 
@@ -83,24 +85,24 @@ export const ui = {
     "nav.request": "Request access",
 
     // Hero
-    "hero.headline.0": "First-time approvals",
-    "hero.headline.1": "More complete submissions",
-    "hero.headline.2": "Shorter authorization cycle",
+    "hero.headline.0": "Complete cases on the first try",
+    "hero.headline.1": "Every case knows what's next",
+    "hero.headline.2": "Real-time financial visibility",
     "hero.subtitle":
       "Kurio is your hospital's authorizations agent. It knows each insurer's requirements and helps your team submit every case right the first time.",
 
     // Results
     "results.intro":
       "Hospitals that handle authorizations well reduce the time between care and authorization, with less friction for everyone involved.",
-    "results.card1.title": "Complete submissions",
+    "results.card1.title": "Every insurer has different requirements",
     "results.card1.body":
-      "Every submission goes out complete with what the insurer needs.",
-    "results.card2.title": "Shorter cycle",
+      "Kurio knows the documents, formats and details each insurer expects, and builds the case file accordingly.",
+    "results.card2.title": "You know what's missing in every case",
     "results.card2.body":
-      "Less time between care delivered and authorization received.",
-    "results.card3.title": "Full visibility",
+      "Every case file shows the next step: which document to upload, which data to fix, what the insurer is waiting for. Your team never loses a case along the way.",
+    "results.card3.title": "From submission to payment, in a single view",
     "results.card3.body":
-      "Real-time status on every case. No chasing for information.",
+      "Status of every case, authorized amount, adjustments and payment timelines — without chasing information across spreadsheets.",
 
     // HowItWorks
     "how.title": "How it works",
@@ -109,9 +111,9 @@ export const ui = {
     "how.tab1.title": "Organize the case file",
     "how.tab1.body":
       "Dynamic checklist auto-generated from each insurer's requirements.",
-    "how.tab2.title": "Verify with AI",
+    "how.tab2.title": "Verifies against each insurer",
     "how.tab2.body":
-      "The agent extracts data from documents, classifies each one, and flags what's missing.",
+      "Kurio classifies documents, extracts key data, and flags what's missing based on the specific requirements of the insurer for each case.",
     "how.tab3.title": "Submit with confidence",
     "how.tab3.body":
       "Confirmation that everything is in order before sending to the insurer.",
@@ -125,7 +127,8 @@ export const ui = {
 
     // LeadCapture
     "lead.title": "Want to see how it works with your insurers?",
-    "lead.subtitle": "Schedule a custom demo for your hospital.",
+    "lead.subtitle":
+      "Schedule a custom demo for your hospital. We'll show you how your insurers look inside the system.",
     "lead.iframeTitle": "Request access to Kurio",
     "lead.noscript": "Email us at",
 
