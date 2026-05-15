@@ -21,7 +21,7 @@ export const ui = {
 
     // Hero
     "hero.headline.0": "Expedientes completos a la primera",
-    "hero.headline.1": "Cada caso con su próximo paso claro",
+    "hero.headline.1": "Construye cada paso del expediente",
     "hero.headline.2": "Visibilidad financiera en tiempo real",
     "hero.subtitle":
       "Kurio es el agente de autorizaciones de tu hospital. Conoce los requisitos de cada aseguradora y ayuda a tu equipo a enviar cada caso correctamente desde la primera vez.",
@@ -86,7 +86,7 @@ export const ui = {
 
     // Hero
     "hero.headline.0": "Complete cases on the first try",
-    "hero.headline.1": "Every case knows what's next",
+    "hero.headline.1": "Builds the case file, step by step",
     "hero.headline.2": "Real-time financial visibility",
     "hero.subtitle":
       "Kurio is your hospital's authorizations agent. It knows each insurer's requirements and helps your team submit every case right the first time.",

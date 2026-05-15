@@ -5,13 +5,25 @@ import KurioLupaAnimated from "./KurioLupaAnimated.astro";
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-const steps = [
+type LupaMode = "searching" | "discovering" | "breathing" | "monitoring";
+
+const steps: Array<{
+  id: string;
+  number: string;
+  title: string;
+  description: string;
+  image: string;
+  lupaMode: LupaMode;
+  lupaSize: number;
+}> = [
   {
     id: "organiza",
     number: "01",
     title: t("how.tab1.title"),
     description: t("how.tab1.body"),
     image: "/images/organiza.png",
+    lupaMode: "searching",
+    lupaSize: 36,
   },
   {
     id: "verifica",
@@ -19,7 +31,8 @@ const steps = [
     title: t("how.tab2.title"),
     description: t("how.tab2.body"),
     image: "/images/verifica.png",
-    withLupa: true,
+    lupaMode: "discovering",
+    lupaSize: 32,
   },
   {
     id: "envia",
@@ -27,6 +40,8 @@ const steps = [
     title: t("how.tab3.title"),
     description: t("how.tab3.body"),
     image: "/images/envia.png",
+    lupaMode: "breathing",
+    lupaSize: 44,
   },
   {
     id: "seguimiento",
@@ -34,6 +49,8 @@ const steps = [
     title: t("how.tab4.title"),
     description: t("how.tab4.body"),
     image: "/images/seguimiento.png",
+    lupaMode: "monitoring",
+    lupaSize: 32,
   },
 ];
 ---
@@ -53,27 +70,20 @@ const steps = [
           data-step={step.id}
           class="bg-zinc-50 rounded-2xl p-6 md:p-8 flex flex-col gap-5"
         >
-          <div class="aspect-[16/10] w-full overflow-hidden rounded-xl bg-white">
+          <div class="relative aspect-[16/10] w-full overflow-hidden rounded-xl bg-white">
             <img
               src={step.image}
               alt={step.title}
-              class="w-full h-full object-cover"
+              class="absolute inset-0 w-full h-full object-cover"
               loading="lazy"
             />
+            <KurioLupaAnimated mode={step.lupaMode} size={step.lupaSize} />
           </div>
 
           <div>
-            <div class="flex items-center gap-2 mb-2">
-              <span class="text-xs font-semibold tracking-wider text-zinc-400">
-                {step.number}
-              </span>
-              {step.withLupa && (
-                <KurioLupaAnimated
-                  size={20}
-                  mode="scanning-on-viewport"
-                />
-              )}
-            </div>
+            <span class="text-xs font-semibold tracking-wider text-zinc-400 block mb-2">
+              {step.number}
+            </span>
             <h3 class="text-lg md:text-xl font-semibold text-zinc-900 mb-2">
               {step.title}
             </h3>

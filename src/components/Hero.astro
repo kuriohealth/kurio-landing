@@ -1,6 +1,5 @@
 ---
 import { getLangFromUrl, useTranslations } from "../i18n/utils";
-import KurioLupaAnimated from "./KurioLupaAnimated.astro";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -14,11 +13,6 @@ const headlines = [
 
 <section class="pt-32 pb-20 px-6">
   <div class="max-w-4xl mx-auto text-center">
-    <!-- Animated brand mark above the headline -->
-    <div class="flex justify-center mb-6">
-      <KurioLupaAnimated size={48} mode="loop" loopDurationSeconds={6} />
-    </div>
-
     <!-- Rotating headline -->
     <div class="h-16 sm:h-20 flex items-center justify-center mb-6">
       <h1
