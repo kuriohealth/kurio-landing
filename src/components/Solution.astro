@@ -1,5 +1,6 @@
 ---
 import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import KurioLupaAnimated from "./KurioLupaAnimated.astro";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -10,5 +11,10 @@ const t = useTranslations(lang);
     <blockquote class="text-2xl sm:text-3xl font-medium text-zinc-800 leading-relaxed">
       "{t("solution.quote")}"
     </blockquote>
+    <!-- Signature mark — sits diagonally past the closing quote, like an
+         agent's sign-off. The handle wags via the tilt mode. -->
+    <div class="mt-6 flex justify-end pr-4 sm:pr-12">
+      <KurioLupaAnimated size={52} mode="tilt" />
+    </div>
   </div>
 </section>

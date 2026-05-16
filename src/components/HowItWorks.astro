@@ -1,33 +1,56 @@
 ---
 import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import KurioLupaAnimated from "./KurioLupaAnimated.astro";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-const tabs = [
+type LupaMode = "searching" | "discovering" | "breathing" | "monitoring";
+
+const steps: Array<{
+  id: string;
+  number: string;
+  title: string;
+  description: string;
+  image: string;
+  lupaMode: LupaMode;
+  lupaSize: number;
+}> = [
   {
     id: "organiza",
+    number: "01",
     title: t("how.tab1.title"),
     description: t("how.tab1.body"),
     image: "/images/organiza.png",
+    lupaMode: "searching",
+    lupaSize: 36,
   },
   {
     id: "verifica",
+    number: "02",
     title: t("how.tab2.title"),
     description: t("how.tab2.body"),
     image: "/images/verifica.png",
+    lupaMode: "discovering",
+    lupaSize: 32,
   },
   {
     id: "envia",
+    number: "03",
     title: t("how.tab3.title"),
     description: t("how.tab3.body"),
     image: "/images/envia.png",
+    lupaMode: "breathing",
+    lupaSize: 44,
   },
   {
     id: "seguimiento",
+    number: "04",
     title: t("how.tab4.title"),
     description: t("how.tab4.body"),
     image: "/images/seguimiento.png",
+    lupaMode: "monitoring",
+    lupaSize: 32,
   },
 ];
 ---
@@ -41,81 +64,35 @@ const tabs = [
       {t("how.subtitle")}
     </p>
 
-    <!-- Tabs -->
-    <div class="flex flex-wrap justify-center gap-2 mb-10" id="tabs-container">
-      {tabs.map((tab, i) => (
-        <button
-          data-tab={tab.id}
-          class:list={[
-            "tab-btn px-4 py-2 text-sm font-medium rounded-lg transition-colors",
-            i === 0
-              ? "bg-zinc-900 text-white"
-              : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200",
-          ]}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {steps.map((step) => (
+        <article
+          data-step={step.id}
+          class="bg-zinc-50 rounded-2xl p-6 md:p-8 flex flex-col gap-5"
         >
-          {tab.title}
-        </button>
-      ))}
-    </div>
-
-    <!-- Tab content -->
-    <div class="relative">
-      {tabs.map((tab, i) => (
-        <div
-          data-panel={tab.id}
-          class:list={[
-            "tab-panel transition-opacity duration-300",
-            i === 0 ? "block opacity-100" : "hidden opacity-0",
-          ]}
-        >
-          <div class="bg-zinc-50 rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8">
-            <div class="w-full md:w-1/2">
-              <img
-                src={tab.image}
-                alt={tab.title}
-                class="w-full rounded-xl"
-                loading="lazy"
-              />
-            </div>
-
-            <!-- Description -->
-            <div class="w-full md:w-1/2">
-              <h3 class="text-xl font-semibold text-zinc-900 mb-3">{tab.title}</h3>
-              <p class="text-zinc-500 leading-relaxed">{tab.description}</p>
-            </div>
+          <div class="relative aspect-[16/10] w-full overflow-hidden rounded-xl bg-white">
+            <img
+              src={step.image}
+              alt={step.title}
+              class="absolute inset-0 w-full h-full object-cover"
+              loading="lazy"
+            />
+            <KurioLupaAnimated mode={step.lupaMode} size={step.lupaSize} />
           </div>
-        </div>
+
+          <div>
+            <span class="text-xs font-semibold tracking-wider text-zinc-400 block mb-2">
+              {step.number}
+            </span>
+            <h3 class="text-lg md:text-xl font-semibold text-zinc-900 mb-2">
+              {step.title}
+            </h3>
+            <p class="text-zinc-500 leading-relaxed text-sm md:text-base">
+              {step.description}
+            </p>
+          </div>
+        </article>
       ))}
     </div>
   </div>
 </section>
-
-<script>
-  const buttons = document.querySelectorAll<HTMLButtonElement>(".tab-btn");
-  const panels = document.querySelectorAll<HTMLDivElement>(".tab-panel");
-
-  buttons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const target = btn.dataset.tab;
-
-      // Update buttons
-      buttons.forEach((b) => {
-        b.classList.remove("bg-zinc-900", "text-white");
-        b.classList.add("bg-zinc-100", "text-zinc-600");
-      });
-      btn.classList.remove("bg-zinc-100", "text-zinc-600");
-      btn.classList.add("bg-zinc-900", "text-white");
-
-      // Update panels
-      panels.forEach((p) => {
-        if (p.dataset.panel === target) {
-          p.classList.remove("hidden", "opacity-0");
-          p.classList.add("block", "opacity-100");
-        } else {
-          p.classList.add("hidden", "opacity-0");
-          p.classList.remove("block", "opacity-100");
-        }
-      });
-    });
-  });
-</script>
