@@ -37,9 +37,17 @@ const cards: Array<{
 
 <section class="py-20 px-6 bg-zinc-50">
   <div class="max-w-5xl mx-auto">
-    <p class="text-center text-lg text-zinc-500 mb-12">
-      {t("results.intro")}
-    </p>
+    <header class="text-center mb-12">
+      <div class="flex justify-center mb-4">
+        <span class="k-eyebrow">{t("results.eyebrow")}</span>
+      </div>
+      <h2 class="text-3xl font-bold text-zinc-900 mb-4">
+        {t("results.title")}
+      </h2>
+      <p class="text-lg text-zinc-500 max-w-2xl mx-auto">
+        {t("results.intro")}
+      </p>
+    </header>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       {cards.map((card) => (

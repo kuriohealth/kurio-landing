@@ -220,6 +220,78 @@
 }
 
 /* ╔══════════════════════════════════════════════════════════════╗
+   ║ Button — primary action element. Variants for emphasis,      ║
+   ║ sizes for context.                                            ║
+   ║                                                               ║
+   ║   <a class="k-button k-button--primary">Solicitar acceso</a>  ║
+   ║   <a class="k-button k-button--secondary">Iniciar sesión</a>  ║
+   ║   <a class="k-button k-button--primary k-button--sm">…</a>    ║
+   ║                                                               ║
+   ║ Variants: --primary (filled ink), --secondary (outlined).     ║
+   ║ Sizes: default (large, for hero CTAs), --sm (compact, for    ║
+   ║ navbars and inline actions).                                  ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+.k-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 32px;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: var(--k-radius-md);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--k-duration-fast) var(--k-ease),
+    color var(--k-duration-fast) var(--k-ease),
+    border-color var(--k-duration-fast) var(--k-ease);
+}
+
+.k-button--sm {
+  padding: 8px 16px;
+  font-size: 14px;
+}
+
+.k-button--primary {
+  background: var(--k-ink);
+  color: #ffffff;
+}
+.k-button--primary:hover {
+  background: var(--k-ink-strong);
+}
+
+.k-button--secondary {
+  background: transparent;
+  color: var(--k-ink-soft);
+  border-color: var(--k-line);
+}
+.k-button--secondary:hover {
+  background: var(--k-bg-subtle);
+  color: var(--k-ink);
+}
+
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║ Step number — sequence indicator (01, 02, 03…). Mono,        ║
+   ║ uppercase, tracked, muted. Like .k-tag-label but without     ║
+   ║ the leading colored dot (because numbers don't categorize,   ║
+   ║ they sequence).                                               ║
+   ║                                                               ║
+   ║   <span class="k-step-number">01</span>                       ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+.k-step-number {
+  display: inline-block;
+  font-family: var(--k-font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--k-ink-mute);
+}
+
+/* ╔══════════════════════════════════════════════════════════════╗
    ║ Reduced motion — disable kit animations for users who opt in. ║
    ║ Visual states still apply, motion does not.                   ║
    ╚══════════════════════════════════════════════════════════════╝ */
