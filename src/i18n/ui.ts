@@ -56,6 +56,15 @@ export const ui = {
     "how.tab4.body":
       "Trazabilidad del estado de la autorización hasta el cobro.",
 
+    // InAction (live agent demo between Hero and Results)
+    "inaction.eyebrow": "Expediente en vivo",
+    "inaction.headline.lead": "De la realidad clínica al expediente,",
+    "inaction.headline.accent": "en tiempo real.",
+    "inaction.sublede":
+      "Kurio convierte cada evento del paciente en un expediente estructurado, listo para la aseguradora correcta.",
+    "inaction.label.journey": "Vida del paciente",
+    "inaction.label.expediente": "Expediente Kurio",
+
     // Solution
     "solution.quote":
       "Kurio trabaja junto a la coordinación de seguros: organiza el expediente, verifica que todo esté en orden, envía el caso y da seguimiento hasta la autorización.",
@@ -120,6 +129,15 @@ export const ui = {
     "how.tab4.title": "Track it",
     "how.tab4.body":
       "Traceability from authorization status all the way to reimbursement.",
+
+    // InAction (live agent demo between Hero and Results)
+    "inaction.eyebrow": "Live case file",
+    "inaction.headline.lead": "From clinical reality to the case file,",
+    "inaction.headline.accent": "in real time.",
+    "inaction.sublede":
+      "Kurio turns every patient event into a structured case file, ready for the right insurer.",
+    "inaction.label.journey": "Patient journey",
+    "inaction.label.expediente": "Kurio case file",
 
     // Solution
     "solution.quote":
