@@ -28,7 +28,7 @@ When the product app (kurio-agente-autorizaciones) adopts these patterns, the sa
 | **Status — progress (amber)** | `--k-status-progress-bg`, `--k-status-progress-fg` |
 | **Status — ready (green)** | `--k-status-ready-bg`, `--k-status-ready-fg` |
 | **Status — sent (blue)** | `--k-status-sent-bg`, `--k-status-sent-fg` |
-| **Neutral / surface** | `--k-ink`, `--k-ink-soft`, `--k-ink-mute`, `--k-bg`, `--k-bg-subtle`, `--k-line`, `--k-line-soft` |
+| **Neutral / surface** | `--k-ink`, `--k-ink-strong`, `--k-ink-soft`, `--k-ink-mute`, `--k-bg`, `--k-bg-subtle`, `--k-line`, `--k-line-soft` |
 | **Typography** | `--k-font-mono` (Inter is the sans, set in Layout's `@theme`) |
 | **Motion** | `--k-ease`, `--k-ease-out`, `--k-duration-fast`, `--k-duration-base`, `--k-duration-slow` |
 | **Radii** | `--k-radius-sm`, `--k-radius-md`, `--k-radius-lg`, `--k-radius-xl` |
@@ -112,6 +112,24 @@ Entrance animation (opacity + translateY) for newly populated data.
 
 ```html
 <div class="k-field-in">Hemograma · Eco</div>
+```
+
+### `.k-button` + variants + sizes
+Primary action element. Two variants (`--primary` filled, `--secondary` outlined) and an optional `--sm` size for compact contexts like navbars.
+
+```html
+<a class="k-button k-button--primary">Solicitar acceso</a>
+<a class="k-button k-button--secondary">Iniciar sesión</a>
+<a class="k-button k-button--primary k-button--sm">…</a>
+```
+
+Stack with `w-full sm:w-auto` (Tailwind) when you need the button to fill on mobile.
+
+### `.k-step-number`
+Sequence indicator (`01`, `02`, …). Mono, uppercase, tracked, muted. Like `.k-tag-label` but without a leading colored dot (numbers don't categorize — they sequence).
+
+```html
+<span class="k-step-number">01</span>
 ```
 
 ---
