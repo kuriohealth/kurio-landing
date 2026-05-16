@@ -1,12 +1,13 @@
 ---
 /**
- * "Kurio in action" — a 14s loop showing the agent at work:
+ * "Kurio in action" — a 16s loop showing the agent at work:
  *
  *   Patient journey events  →  Kurio agent (lupa scans)  →  Expediente builds itself
  *
- * Adapted from the standalone prototype at
- * public/kurio-hero-animation.html (since deleted) into the landing's
- * design system: Inter typography, brand purple #6D4FE8, zinc grays.
+ * Visual primitives that get reused elsewhere live in kurio-ui.css
+ * (`.k-eyebrow`, `.k-tag-label`, `.k-status-pill`, `.k-banner`,
+ * `.k-headline-accent`). InAction-specific code below owns the
+ * stage layout and the 16s sequence keyframes.
  *
  * Demo content (medical case data) intentionally stays in Spanish on
  * both ES and EN pages — the product runs in Spanish for the LATAM
@@ -23,10 +24,10 @@ const t = useTranslations(lang);
   <div class="max-w-6xl mx-auto">
     <header class="inaction-header">
       <div>
-        <span class="eyebrow">{t("inaction.eyebrow")}</span>
+        <span class="k-eyebrow">{t("inaction.eyebrow")}</span>
         <h2 class="inaction-h">
           {t("inaction.headline.lead")}<br>
-          <em>{t("inaction.headline.accent")}</em>
+          <em class="k-headline-accent">{t("inaction.headline.accent")}</em>
         </h2>
       </div>
       <p class="sublede">{t("inaction.sublede")}</p>
@@ -37,8 +38,7 @@ const t = useTranslations(lang);
 
         <!-- LEFT: Patient journey -->
         <div class="journey">
-          <div class="column-label">
-            <span class="dot dot-warm"></span>
+          <div class="k-tag-label k-tag-label--warm">
             {t("inaction.label.journey")}
           </div>
           <div class="journey-track">
@@ -108,8 +108,7 @@ const t = useTranslations(lang);
 
         <!-- RIGHT: Expediente builds itself -->
         <div class="expediente">
-          <div class="column-label">
-            <span class="dot dot-agent"></span>
+          <div class="k-tag-label k-tag-label--agent">
             {t("inaction.label.expediente")}
           </div>
           <div class="expediente-card">
@@ -119,10 +118,10 @@ const t = useTranslations(lang);
                 <div class="exp-patient">Mario González · 47</div>
               </div>
               <div class="exp-status">
-                <span class="status-state state-borrador">Borrador</span>
-                <span class="status-state state-encurso">En curso</span>
-                <span class="status-state state-listo">Listo</span>
-                <span class="status-state state-enviado">Enviado</span>
+                <span class="k-status-pill k-status-pill--pending  status-state state-borrador">Borrador</span>
+                <span class="k-status-pill k-status-pill--progress status-state state-encurso">En curso</span>
+                <span class="k-status-pill k-status-pill--ready    status-state state-listo">Listo</span>
+                <span class="k-status-pill k-status-pill--sent     status-state state-enviado">Enviado</span>
               </div>
             </div>
 
@@ -137,8 +136,8 @@ const t = useTranslations(lang);
               <div class="field f8"><div class="field-label">Cirujano</div><div class="field-value">Dr. R. Ramírez</div></div>
             </div>
 
-            <div class="exp-ready">
-              <div class="exp-ready-icon">✓</div>
+            <div class="exp-ready k-banner k-banner--ready">
+              <div class="k-banner__icon">✓</div>
               <div>
                 <div class="exp-ready-text"><strong>Listo para envío</strong> · Aseguradora</div>
                 <div class="exp-ready-meta">Match de patrón · 94% confianza</div>
@@ -162,32 +161,16 @@ const t = useTranslations(lang);
 </section>
 
 <style>
-  /* Design tokens — adapted from prototype to landing's brand. */
+  /* InAction-specific timing only. All design tokens come from
+     kurio-brand.css via :root (--k-purple, --k-status-*, --k-ink, etc.).
+     The 16s loop: first ~12.5s is the document flow; the remaining
+     ~3.5s lets the case file settle into Listo, then Enviado with
+     the airplane fly-off, before the cycle resets to Borrador. */
   .inaction-section {
-    --in-bg: #ffffff;
-    --in-bg-subtle: #F4F4F5;     /* zinc-100 */
-    --in-ink: #18181B;           /* zinc-900 */
-    --in-ink-soft: #52525B;      /* zinc-600 */
-    --in-ink-mute: #A1A1AA;      /* zinc-400 */
-    --in-line: rgba(24, 24, 27, 0.08);
-    --in-line-soft: rgba(24, 24, 27, 0.04);
-    --in-agent: #6D4FE8;         /* brand purple */
-    --in-agent-soft: #EDE9FE;
-    --in-warm: #B45309;          /* journey accent */
-    --in-warm-soft: #FEF3C7;
-    --in-success: #15803D;       /* green-700 */
-    --in-success-soft: #DCFCE7;
-    --in-info: #1D4ED8;          /* blue-700 — "Enviado" state */
-    --in-info-soft: #DBEAFE;
-    --in-card: #ffffff;
-    --in-mono: ui-monospace, "SF Mono", Menlo, Monaco, "Cascadia Mono", monospace;
-    /* 16s loop. The first ~12.5s is the document flow; the remaining
-       ~3.5s lets the case file settle into Listo, then Enviado with
-       the airplane fly-off, before the cycle resets to Borrador. */
     --in-duration: 16s;
   }
 
-  /* Header */
+  /* Header layout */
   .inaction-header {
     display: flex;
     align-items: baseline;
@@ -196,46 +179,21 @@ const t = useTranslations(lang);
     margin-bottom: 40px;
     padding: 0 4px;
   }
-  .eyebrow {
-    font-family: var(--in-mono);
-    font-size: 11px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: var(--in-agent);
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
+  /* k-eyebrow spacing within this section's header */
+  .inaction-header .k-eyebrow {
     margin-bottom: 18px;
-  }
-  .eyebrow::before {
-    content: '';
-    width: 6px; height: 6px;
-    background: var(--in-agent);
-    border-radius: 50%;
-    box-shadow: 0 0 0 3px var(--in-agent-soft);
-    animation: inaction-pulse 2s ease-in-out infinite;
-  }
-  @keyframes inaction-pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
   }
   .inaction-h {
     font-size: clamp(28px, 4.2vw, 46px);
     font-weight: 600;
     line-height: 1.08;
     letter-spacing: -0.02em;
-    color: var(--in-ink);
+    color: var(--k-ink);
     max-width: 620px;
-  }
-  .inaction-h em {
-    font-style: italic;
-    font-weight: 500;
-    color: var(--in-agent);
   }
   .sublede {
     font-size: 14px;
-    color: var(--in-ink-soft);
+    color: var(--k-ink-soft);
     line-height: 1.5;
     max-width: 280px;
     text-align: right;
@@ -243,15 +201,13 @@ const t = useTranslations(lang);
 
   /* Stage card */
   .stage {
-    background: var(--in-card);
-    border: 1px solid var(--in-line);
-    border-radius: 20px;
+    background: var(--k-bg);
+    border: 1px solid var(--k-line);
+    border-radius: var(--k-radius-xl);
     padding: 36px 28px;
     position: relative;
     /* No overflow: hidden — lets the paper airplane fly out of the
-       card onto the section background. The grid texture below
-       (stage::before) is bounded by its own inset: 0 so it doesn't
-       leak. */
+       card onto the section background. */
     box-shadow:
       0 1px 0 rgba(255,255,255,0.8) inset,
       0 24px 48px -24px rgba(24, 24, 27, 0.10),
@@ -262,8 +218,8 @@ const t = useTranslations(lang);
     position: absolute;
     inset: 0;
     background-image:
-      linear-gradient(var(--in-line-soft) 1px, transparent 1px),
-      linear-gradient(90deg, var(--in-line-soft) 1px, transparent 1px);
+      linear-gradient(var(--k-line-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--k-line-soft) 1px, transparent 1px);
     background-size: 32px 32px;
     background-position: -1px -1px;
     mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
@@ -280,24 +236,11 @@ const t = useTranslations(lang);
     z-index: 1;
   }
 
-  .column-label {
-    font-family: var(--in-mono);
-    font-size: 10px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--in-ink-mute);
+  /* k-tag-label spacing in both columns (journey + expediente) */
+  .journey > .k-tag-label,
+  .expediente > .k-tag-label {
     margin-bottom: 18px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
   }
-  .column-label .dot {
-    width: 5px; height: 5px;
-    border-radius: 50%;
-  }
-  .dot-warm { background: var(--in-warm); }
-  .dot-agent { background: var(--in-agent); }
 
   /* === LEFT: Patient journey === */
   .journey { position: relative; }
@@ -310,7 +253,7 @@ const t = useTranslations(lang);
     position: absolute;
     left: 11px; top: 14px; bottom: 14px;
     width: 1px;
-    background: linear-gradient(to bottom, var(--in-warm-soft) 0%, var(--in-line) 100%);
+    background: linear-gradient(to bottom, var(--k-status-progress-bg) 0%, var(--k-line) 100%);
   }
   .event {
     position: relative;
@@ -326,15 +269,15 @@ const t = useTranslations(lang);
     top: 14px;
     width: 24px; height: 24px;
     border-radius: 50%;
-    background: var(--in-bg);
-    border: 1.5px solid var(--in-line);
+    background: var(--k-bg);
+    border: 1.5px solid var(--k-line);
     display: grid;
     place-items: center;
     transition: all 0.4s ease;
   }
   .event-marker svg {
     width: 12px; height: 12px;
-    stroke: var(--in-ink-mute);
+    stroke: var(--k-ink-mute);
     stroke-width: 1.8;
     fill: none;
     stroke-linecap: round;
@@ -342,20 +285,20 @@ const t = useTranslations(lang);
     transition: stroke 0.4s ease;
   }
   .event-time {
-    font-family: var(--in-mono);
+    font-family: var(--k-font-mono);
     font-size: 10px;
-    color: var(--in-ink-mute);
+    color: var(--k-ink-mute);
     letter-spacing: 0.04em;
   }
   .event-title {
     font-size: 14px;
     font-weight: 500;
-    color: var(--in-ink);
+    color: var(--k-ink);
     margin-top: 2px;
   }
   .event-detail {
     font-size: 12px;
-    color: var(--in-ink-soft);
+    color: var(--k-ink-soft);
     margin-top: 2px;
     line-height: 1.4;
   }
@@ -366,7 +309,7 @@ const t = useTranslations(lang);
   .event.e4 { animation: eventActive var(--in-duration) ease-in-out infinite; animation-delay: -7.6s; }
   @keyframes eventActive {
     0%, 5%   { background: transparent; }
-    8%, 22%  { background: var(--in-warm-soft); }
+    8%, 22%  { background: var(--k-status-progress-bg); }
     25%, 100%{ background: transparent; }
   }
   .event.e1 .event-marker { animation: markerActive var(--in-duration) ease-in-out infinite; animation-delay: 0s; }
@@ -374,24 +317,20 @@ const t = useTranslations(lang);
   .event.e3 .event-marker { animation: markerActive var(--in-duration) ease-in-out infinite; animation-delay: -10.4s; }
   .event.e4 .event-marker { animation: markerActive var(--in-duration) ease-in-out infinite; animation-delay: -7.6s; }
   @keyframes markerActive {
-    0%, 5%   { background: var(--in-bg); border-color: var(--in-line); }
-    8%, 22%  { background: var(--in-warm); border-color: var(--in-warm); box-shadow: 0 0 0 4px var(--in-warm-soft); }
-    25%, 100%{ background: var(--in-bg); border-color: var(--in-line); box-shadow: none; }
+    0%, 5%   { background: var(--k-bg); border-color: var(--k-line); }
+    8%, 22%  { background: var(--k-status-progress-fg); border-color: var(--k-status-progress-fg); box-shadow: 0 0 0 4px var(--k-status-progress-bg); }
+    25%, 100%{ background: var(--k-bg); border-color: var(--k-line); box-shadow: none; }
   }
   .event.e1 .event-marker svg { animation: iconActive var(--in-duration) ease-in-out infinite; animation-delay: 0s; }
   .event.e2 .event-marker svg { animation: iconActive var(--in-duration) ease-in-out infinite; animation-delay: -13.2s; }
   .event.e3 .event-marker svg { animation: iconActive var(--in-duration) ease-in-out infinite; animation-delay: -10.4s; }
   .event.e4 .event-marker svg { animation: iconActive var(--in-duration) ease-in-out infinite; animation-delay: -7.6s; }
   @keyframes iconActive {
-    0%, 5%, 25%, 100% { stroke: var(--in-ink-mute); }
+    0%, 5%, 25%, 100% { stroke: var(--k-ink-mute); }
     8%, 22% { stroke: #ffffff; }
   }
 
-  /* === MIDDLE: Agent + docs ===
-     The flow column stretches to match the journey/expediente height
-     (via grid align-items: stretch on .stage-grid). Centering the lupa
-     vertically here means it sits at the visual midpoint of the stage,
-     which is the convergence target for every traveling doc. */
+  /* === MIDDLE: Agent + docs === */
   .flow {
     position: relative;
     display: flex;
@@ -408,13 +347,13 @@ const t = useTranslations(lang);
     position: absolute;
     /* Pin to .flow's top-left so translateY values in keyframes are
        measured from .flow's top (not from the flex-centered "static
-       position", which would otherwise put the doc near the lupa). */
+       position"). */
     top: 0;
     left: 0;
     width: 64px;
     height: 80px;
-    background: var(--in-card);
-    border: 1px solid var(--in-line);
+    background: var(--k-bg);
+    border: 1px solid var(--k-line);
     border-radius: 6px;
     padding: 6px;
     display: flex;
@@ -426,14 +365,14 @@ const t = useTranslations(lang);
   .doc::before {
     content: '';
     width: 18px; height: 2px;
-    background: var(--in-ink);
+    background: var(--k-ink);
     opacity: 0.5;
     border-radius: 1px;
     margin-bottom: 2px;
   }
   .doc .line {
     height: 1.5px;
-    background: var(--in-line);
+    background: var(--k-line);
     border-radius: 1px;
   }
   .doc .line:nth-child(2) { width: 90%; }
@@ -445,9 +384,9 @@ const t = useTranslations(lang);
     bottom: -16px;
     left: 50%;
     transform: translateX(-50%);
-    font-family: var(--in-mono);
+    font-family: var(--k-font-mono);
     font-size: 9px;
-    color: var(--in-ink-mute);
+    color: var(--k-ink-mute);
     white-space: nowrap;
     letter-spacing: 0.04em;
   }
@@ -455,34 +394,26 @@ const t = useTranslations(lang);
   /* Each doc emerges from its corresponding event's marker height
      (--event-y, calibrated to actual measured marker centers:
      59 / 158 / 257 / 355 from .flow top, minus 40 to align doc center
-     with marker center). Lingers briefly so the origin is visible,
-     then converges to the lupa, then continues right into the
-     expediente.
+     with marker center).
      Delays use a 2.8s stride so all four docs deliver within the
-     first ~78% of the 16s cycle, leaving ~3.5s for the Listo →
-     Enviado status transitions and the airplane fly-off after the
-     case is fully assembled:
-       d1 starts at t=0,    delivered ~4.2s   (~26% cycle)
-       d2 starts at t=2.8,  delivered ~7.0s   (~44% cycle)
-       d3 starts at t=5.6,  delivered ~9.8s   (~61% cycle)
-       d4 starts at t=8.4,  delivered ~12.6s  (~78% cycle) */
+     first ~78% of the 16s cycle:
+       d1 starts t=0,    delivered ~4.2s
+       d2 starts t=2.8,  delivered ~7.0s
+       d3 starts t=5.6,  delivered ~9.8s
+       d4 starts t=8.4,  delivered ~12.6s  */
   .doc.d1 { --event-y: 19px;  animation: docTravel var(--in-duration) ease-in-out infinite; animation-delay: 0s; }
   .doc.d2 { --event-y: 118px; animation: docTravel var(--in-duration) ease-in-out infinite; animation-delay: -13.2s; }
   .doc.d3 { --event-y: 217px; animation: docTravel var(--in-duration) ease-in-out infinite; animation-delay: -10.4s; }
   .doc.d4 { --event-y: 315px; animation: docTravel var(--in-duration) ease-in-out infinite; animation-delay: -7.6s; }
   /* All four docs converge on the lupa at translateY=177 — measured
      lupa center is at Y=217 from .flow top; doc center (177 + 40 = 217)
-     lands exactly on lupa center. Then they continue right at the same
-     height into the expediente.
-     X start at -180 puts the doc clearly inside the journey column.
-     5%-10% is a "linger" frame where the doc holds at its event-y
-     so the origin is visible. */
+     lands exactly on lupa center. */
   @keyframes docTravel {
     0%   { opacity: 0; transform: translate(-180px, var(--event-y)) scale(0.85) rotate(-6deg); }
     5%   { opacity: 1; transform: translate(-180px, var(--event-y)) scale(1) rotate(-6deg); }
     10%  { opacity: 1; transform: translate(-180px, var(--event-y)) scale(1) rotate(-6deg); }
     13%  { opacity: 1; transform: translate(-90px, calc((var(--event-y) + 177px) / 2)) scale(1.05) rotate(-2deg); }
-    16%  { opacity: 1; transform: translate(8px, 177px) scale(1.08) rotate(0deg); filter: drop-shadow(0 0 0 var(--in-agent)); }
+    16%  { opacity: 1; transform: translate(8px, 177px) scale(1.08) rotate(0deg); filter: drop-shadow(0 0 0 var(--k-purple)); }
     19%  { transform: translate(8px, 177px) scale(1.08) rotate(0deg); filter: drop-shadow(0 0 14px rgba(109, 79, 232, 0.45)); }
     22%  { opacity: 1; transform: translate(80px, 177px) scale(0.95) rotate(4deg); }
     26%  { opacity: 0; transform: translate(180px, 177px) scale(0.6) rotate(8deg); }
@@ -493,8 +424,8 @@ const t = useTranslations(lang);
     position: absolute;
     top: 50%;
     left: 50%;
-    margin-top: -20px;  /* half of 40px height */
-    margin-left: -20px; /* half of 40px width  */
+    margin-top: -20px;
+    margin-left: -20px;
     width: 40px; height: 40px;
     border-radius: 50%;
     background: radial-gradient(circle, rgba(109, 79, 232, 0.45) 0%, transparent 70%);
@@ -515,22 +446,21 @@ const t = useTranslations(lang);
   /* === RIGHT: Expediente === */
   .expediente { position: relative; }
   .expediente-card {
-    background: var(--in-card);
-    border: 1px solid var(--in-line);
-    border-radius: 12px;
+    background: var(--k-bg);
+    border: 1px solid var(--k-line);
+    border-radius: var(--k-radius-lg);
     padding: 16px;
     position: relative;
-    /* No overflow: hidden here — lets the paper airplane fly free.
-       The exp-ready banner now self-clips via its own overflow: hidden
-       so the max-height collapse still works. */
+    /* No overflow: hidden — lets the paper airplane fly free. */
     animation: cardReady var(--in-duration) ease-in-out infinite;
   }
   /* Card border tracks the status: green during Listo (79-88%),
-     blue during Enviado (89-100%), neutral while docs are flowing. */
+     blue during Enviado (89-100%), neutral while docs are flowing.
+     Colors come from the kit's status tokens. */
   @keyframes cardReady {
-    0%, 78%   { box-shadow: 0 1px 2px rgba(24, 24, 27, 0.04); border-color: var(--in-line); }
-    79%, 88%  { box-shadow: 0 0 0 4px var(--in-success-soft), 0 12px 32px -12px rgba(21, 128, 61, 0.25); border-color: var(--in-success); }
-    89%, 100% { box-shadow: 0 0 0 4px var(--in-info-soft), 0 12px 32px -12px rgba(29, 78, 216, 0.25); border-color: var(--in-info); }
+    0%, 78%   { box-shadow: 0 1px 2px rgba(24, 24, 27, 0.04); border-color: var(--k-line); }
+    79%, 88%  { box-shadow: 0 0 0 4px var(--k-status-ready-bg), 0 12px 32px -12px rgba(21, 128, 61, 0.25); border-color: var(--k-status-ready-fg); }
+    89%, 100% { box-shadow: 0 0 0 4px var(--k-status-sent-bg),  0 12px 32px -12px rgba(29, 78, 216, 0.25); border-color: var(--k-status-sent-fg); }
   }
 
   .exp-header {
@@ -538,67 +468,45 @@ const t = useTranslations(lang);
     align-items: center;
     justify-content: space-between;
     padding-bottom: 12px;
-    border-bottom: 1px dashed var(--in-line);
+    border-bottom: 1px dashed var(--k-line);
     margin-bottom: 14px;
   }
   .exp-id {
-    font-family: var(--in-mono);
+    font-family: var(--k-font-mono);
     font-size: 10px;
-    color: var(--in-ink-mute);
+    color: var(--k-ink-mute);
     letter-spacing: 0.06em;
   }
   .exp-patient {
     font-size: 13px;
     font-weight: 500;
-    color: var(--in-ink);
+    color: var(--k-ink);
     margin-top: 2px;
   }
-  /* Status pill cycles through the four real app states. Each state
-     is its own pill (with own bg + text color), stacked via grid in
-     the same cell, faded in/out by an opacity animation timed to the
-     14s loop. */
+
+  /* Status pill cycling: each pill carries .k-status-pill (visual,
+     from the kit) + .status-state (grid placement + animation)
+     + .state-* (which keyframe to drive). The kit owns the visual,
+     this file owns the cycle behavior. */
   .exp-status {
     display: inline-grid;
-    font-family: var(--in-mono);
-    font-size: 9px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
   }
   .status-state {
     grid-column: 1;
     grid-row: 1;
-    padding: 4px 8px;
-    border-radius: 4px;
-    white-space: nowrap;
     opacity: 0;
     animation-duration: var(--in-duration);
     animation-iteration-count: infinite;
     animation-timing-function: ease-in-out;
   }
-  .state-borrador {
-    background: var(--in-bg-subtle);
-    color: var(--in-ink-mute);
-    animation-name: statusBorrador;
-  }
-  .state-encurso {
-    background: var(--in-warm-soft);
-    color: var(--in-warm);
-    animation-name: statusEnCurso;
-  }
-  .state-listo {
-    background: var(--in-success-soft);
-    color: var(--in-success);
-    animation-name: statusListo;
-  }
-  .state-enviado {
-    background: var(--in-info-soft);
-    color: var(--in-info);
-    animation-name: statusEnviado;
-  }
+  .state-borrador { animation-name: statusBorrador; }
+  .state-encurso  { animation-name: statusEnCurso; }
+  .state-listo    { animation-name: statusListo; }
+  .state-enviado  { animation-name: statusEnviado; }
+
   /* Sequence over 16s loop, synchronized to the document flow.
      Listo only appears AFTER d4 has been delivered (not when it
-     starts traveling), so the case visibly completes before the
-     status flips to Listo:
+     starts traveling):
        Borrador  0-5%      (very brief — case empty before d1 emerges)
        En curso  6-78%     (d1 appears @ 5%, d4 delivered @ ~78%)
        Listo     79-88%    (case complete, green border, banner shows)
@@ -629,24 +537,24 @@ const t = useTranslations(lang);
   }
   .field {
     background: #FAFAFA;
-    border: 1px solid var(--in-line-soft);
-    border-radius: 8px;
+    border: 1px solid var(--k-line-soft);
+    border-radius: var(--k-radius-md);
     padding: 9px 11px;
     opacity: 0.3;
     transform: translateY(4px);
     transition: opacity 0.3s ease, transform 0.3s ease;
   }
   .field-label {
-    font-family: var(--in-mono);
+    font-family: var(--k-font-mono);
     font-size: 8.5px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--in-ink-mute);
+    color: var(--k-ink-mute);
     margin-bottom: 3px;
   }
   .field-value {
     font-size: 12px;
-    color: var(--in-ink);
+    color: var(--k-ink);
     font-weight: 500;
     line-height: 1.25;
   }
@@ -660,66 +568,46 @@ const t = useTranslations(lang);
     100%      { opacity: 0.3; transform: translateY(4px); }
   }
 
+  /* Ready banner: .k-banner .k-banner--ready (kit) owns the visual
+     (bg, padding, gap, icon style, color). .exp-ready below owns
+     the appear/disappear animation and the collapse behavior. */
   .exp-ready {
     margin-top: 12px;
-    padding: 10px 12px;
-    border-radius: 8px;
-    background: var(--in-success-soft);
-    display: flex;
-    align-items: center;
-    gap: 10px;
     opacity: 0;
     transform: translateY(8px);
-    /* Self-clip so the max-height collapse hides content cleanly,
-       even now that the parent card has no overflow: hidden. */
     overflow: hidden;
     animation: readyAppear var(--in-duration) ease-out infinite;
   }
-  /* Ready banner appears with status Listo (79-88%) and disappears
-     just as Enviado kicks in (airplane animation owns 89-100%). */
   @keyframes readyAppear {
     0%, 78%   { opacity: 0; transform: translateY(8px); max-height: 0; padding-top: 0; padding-bottom: 0; margin-top: 0; }
     80%, 88%  { opacity: 1; transform: translateY(0); max-height: 80px; padding-top: 10px; padding-bottom: 10px; margin-top: 12px; }
     89%, 100% { opacity: 0; transform: translateY(8px); max-height: 0; padding-top: 0; padding-bottom: 0; margin-top: 0; }
   }
-  .exp-ready-icon {
-    width: 18px; height: 18px;
-    background: var(--in-success);
-    border-radius: 50%;
-    display: grid; place-items: center;
-    color: white;
-    font-size: 11px;
-    font-weight: 600;
-    flex-shrink: 0;
-  }
   .exp-ready-text {
     font-size: 11.5px;
-    color: var(--in-success);
     font-weight: 500;
+    /* color inherits from .k-banner--ready */
   }
   .exp-ready-text strong { font-weight: 600; }
   .exp-ready-meta {
-    font-family: var(--in-mono);
+    font-family: var(--k-font-mono);
     font-size: 9px;
-    color: var(--in-success);
     opacity: 0.75;
     margin-top: 2px;
     letter-spacing: 0.04em;
+    /* color inherits from .k-banner--ready */
   }
 
   /* Paper airplane — visual for "Enviado". Sits invisible at the
-     top-right of the card, then appears, hovers, and flies far
-     up-right out of the card and stage onto the section background
-     during the Enviado phase (85-100%). Both the card and stage have
-     no overflow:hidden, so the airplane is free to soar across the
-     section. The z-index keeps it above other card content. */
+     top-right of the card, appears at 89%, then flies up-right out
+     of the card and stage onto the section background. */
   .exp-airplane {
     position: absolute;
     top: 14px;
     right: 14px;
     width: 24px;
     height: 24px;
-    color: var(--in-info);
+    color: var(--k-status-sent-fg);
     opacity: 0;
     pointer-events: none;
     z-index: 5;
@@ -732,19 +620,13 @@ const t = useTranslations(lang);
     filter: drop-shadow(0 4px 8px rgba(29, 78, 216, 0.40));
   }
   @keyframes airplaneSent {
-    /* Hidden until Enviado kicks in (89%) */
     0%, 88%   { opacity: 0; transform: translate(0, 8px) scale(0.6) rotate(-15deg); }
-    /* Pop into view at the card corner */
     91%       { opacity: 1; transform: translate(0, 0) scale(1) rotate(0deg); }
-    /* Brief lift, hint of flight */
     94%       { opacity: 1; transform: translate(8px, -10px) scale(1.05) rotate(8deg); }
-    /* Soar off into the section background, fading as it goes */
     100%      { opacity: 0; transform: translate(220px, -160px) scale(0.55) rotate(28deg); }
   }
 
-  /* Mobile: collapse to single column. Docs flow VERTICALLY (top → lupa
-     → bottom) so the same "captured event becomes a structured field"
-     story still reads on a phone. */
+  /* Mobile: collapse to single column. Docs flow VERTICALLY. */
   @media (max-width: 720px) {
     .inaction-header { flex-direction: column; gap: 16px; }
     .sublede { text-align: left; max-width: 100%; }
@@ -755,28 +637,15 @@ const t = useTranslations(lang);
     .flow {
       padding-top: 16px;
       padding-bottom: 16px;
-      /* Min-height keeps the flow column tall enough for the lupa +
-         glow flash to sit comfortably between journey and expediente
-         on mobile. Lupa stays vertically centered via the base
-         justify-content: center on .flow. */
       min-height: 88px;
     }
-
-    /* Vertical trajectory: each doc starts at the height of its event
-       (above the flow column, in the journey area), passes through the
-       lupa, and continues downward into the expediente area.
-       --event-y here is NEGATIVE (above the doc's natural position in
-       .flow) and the end position is POSITIVE (below the lupa). */
     .doc {
       display: flex;
-      /* center horizontally so vertical motion stays on-axis */
       left: 50%;
-      margin-left: -32px; /* half of doc width (64) */
+      margin-left: -32px;
     }
     /* Mobile event-y values calibrated to actual measured marker
-       centers (from console: -371, -272, -174, -75 from .flow top).
-       Doc top = marker_center - 40 (half doc) so doc center lands
-       on marker center. */
+       centers (-371, -272, -174, -75 from .flow top). */
     .doc.d1 { --event-y: -411px; }
     .doc.d2 { --event-y: -312px; }
     .doc.d3 { --event-y: -214px; }
@@ -785,26 +654,17 @@ const t = useTranslations(lang);
     .doc.d1, .doc.d2, .doc.d3, .doc.d4 {
       animation-name: docTravelVertical;
     }
-    /* All docs converge exactly on the lupa: measured lupa center is
-       Y=41 from .flow top, so doc top translateY=1 puts doc center
-       (1+40=41) right on lupa center. Then they continue straight
-       down into the expediente. The lupa "redirects" the data flow.
-       5%-10% is a "linger" frame where the doc holds at its event-y
-       position so the user can see the origin clearly. */
     @keyframes docTravelVertical {
       0%   { opacity: 0; transform: translate(0, var(--event-y)) scale(0.85) rotate(-2deg); }
       5%   { opacity: 1; transform: translate(0, var(--event-y)) scale(1) rotate(-2deg); }
       10%  { opacity: 1; transform: translate(0, var(--event-y)) scale(1) rotate(-2deg); }
       13%  { opacity: 1; transform: translate(0, calc(var(--event-y) / 2)) scale(1.05) rotate(-1deg); }
-      16%  { opacity: 1; transform: translate(0, 1px) scale(1.08) rotate(0deg); filter: drop-shadow(0 0 0 var(--in-agent)); }
+      16%  { opacity: 1; transform: translate(0, 1px) scale(1.08) rotate(0deg); filter: drop-shadow(0 0 0 var(--k-purple)); }
       19%  { transform: translate(0, 1px) scale(1.08) rotate(0deg); filter: drop-shadow(0 0 14px rgba(109, 79, 232, 0.45)); }
       22%  { opacity: 1; transform: translate(0, 90px) scale(0.95) rotate(0deg); }
       26%  { opacity: 0; transform: translate(0, 230px) scale(0.6) rotate(0deg); }
       100% { opacity: 0; transform: translate(0, 230px) scale(0.6); }
     }
-
-    /* Glow stays anchored to the lupa center (which sits at the top of
-       .flow content), no special mobile adjustment needed. */
   }
 
   /* Reduced motion: stop all loop animations, leave a static frame. */
@@ -817,8 +677,6 @@ const t = useTranslations(lang);
     }
     .field { opacity: 1; transform: none; }
     .exp-ready { opacity: 1; transform: none; max-height: none; }
-    /* All status states default to opacity 0 (animation drives them);
-       pick one to show statically — "Listo" is the satisfying mid-frame. */
     .state-listo { opacity: 1; }
     .doc { display: none; }
   }

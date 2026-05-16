@@ -1,0 +1,74 @@
+/**
+ * Kurio brand tokens — design primitives shared across landing and
+ * (eventually) the product app. Authored as plain CSS custom
+ * properties so any framework (Astro, React/Next, vanilla) can
+ * consume them by importing this file once.
+ *
+ * Naming convention: every token is prefixed `--k-` so there's no
+ * collision with project-local vars (`--in-*` in InAction, etc.) or
+ * with stale Tailwind theme tokens in global.css.
+ *
+ * Pair with kurio-ui.css for ready-made visual primitives.
+ */
+
+:root {
+  /* ────────────────────────────────────────────────────────────
+     Brand
+     ──────────────────────────────────────────────────────────── */
+  --k-purple:        #6D4FE8;  /* Brand purple — KurioLupa, accents      */
+  --k-purple-soft:   #EDE9FE;  /* Tinted bg / soft halo                  */
+  --k-purple-strong: #5638CC;  /* Hover / pressed                        */
+
+  /* ────────────────────────────────────────────────────────────
+     Status — semantic state colors. Used by .k-status-pill and
+     .k-card--state-* (kurio-ui.css). Each has a "soft" bg variant
+     and a "fg" (text + border + icon) variant.
+     ──────────────────────────────────────────────────────────── */
+  --k-status-pending-bg:  #F4F4F5;  /* zinc-100  — Borrador               */
+  --k-status-pending-fg:  #A1A1AA;  /* zinc-400                           */
+
+  --k-status-progress-bg: #FEF3C7;  /* amber-100 — En curso               */
+  --k-status-progress-fg: #B45309;  /* amber-700                          */
+
+  --k-status-ready-bg:    #DCFCE7;  /* green-100 — Listo                  */
+  --k-status-ready-fg:    #15803D;  /* green-700                          */
+
+  --k-status-sent-bg:     #DBEAFE;  /* blue-100  — Enviado                */
+  --k-status-sent-fg:     #1D4ED8;  /* blue-700                           */
+
+  /* ────────────────────────────────────────────────────────────
+     Neutral — text + surfaces. Mirrors Tailwind's zinc scale where
+     useful so it interoperates naturally with utility classes.
+     ──────────────────────────────────────────────────────────── */
+  --k-ink:        #18181B;             /* zinc-900 — primary text         */
+  --k-ink-soft:   #52525B;             /* zinc-600 — body / secondary     */
+  --k-ink-mute:   #A1A1AA;             /* zinc-400 — labels / hints       */
+  --k-bg:         #FFFFFF;
+  --k-bg-subtle:  #F4F4F5;             /* zinc-100                        */
+  --k-line:       rgba(24, 24, 27, 0.08);
+  --k-line-soft:  rgba(24, 24, 27, 0.04);
+
+  /* ────────────────────────────────────────────────────────────
+     Typography — sans is Inter (set in Layout's @theme). Mono is
+     the system stack we use for micro-labels (status pills,
+     eyebrows, tag labels, IDs, timestamps).
+     ──────────────────────────────────────────────────────────── */
+  --k-font-mono: ui-monospace, "SF Mono", Menlo, Monaco, "Cascadia Mono", monospace;
+
+  /* ────────────────────────────────────────────────────────────
+     Motion
+     ──────────────────────────────────────────────────────────── */
+  --k-ease:           cubic-bezier(0.4, 0, 0.2, 1);
+  --k-ease-out:       cubic-bezier(0, 0, 0.2, 1);
+  --k-duration-fast:  200ms;
+  --k-duration-base:  300ms;
+  --k-duration-slow:  600ms;
+
+  /* ────────────────────────────────────────────────────────────
+     Radii
+     ──────────────────────────────────────────────────────────── */
+  --k-radius-sm: 4px;
+  --k-radius-md: 8px;
+  --k-radius-lg: 12px;
+  --k-radius-xl: 20px;
+}
