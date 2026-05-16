@@ -86,6 +86,11 @@ const altEnUrl = new URL(getLocalizedPath(Astro.url.pathname, "en"), site).href;
 </html>
 
 <style is:global>
+  /* Order matters: brand tokens first (set CSS vars), then the UI
+     kit (consumes those vars in semantic classes), then the project
+     global styles. */
+  @import "../styles/kurio-brand.css";
+  @import "../styles/kurio-ui.css";
   @import "../styles/global.css";
 
   @theme inline {

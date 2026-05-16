@@ -1,0 +1,235 @@
+/**
+ * Kurio UI kit — semantic visual primitives, encoded as plain CSS
+ * classes so they work identically in Astro, React, or vanilla HTML.
+ * The HTML lives in each app's templates; this file owns the look.
+ *
+ * Depends on kurio-brand.css for tokens (import it first).
+ *
+ * Convention:
+ *   .k-foo         → base primitive
+ *   .k-foo--bar    → variant modifier
+ *   .k-foo__baz    → internal element
+ *
+ * When reaching for a class, scan this file first. If something close
+ * already exists, EXTEND the existing pattern (new variant) instead of
+ * copying. Drift is the only failure mode.
+ */
+
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║ Eyebrow — section-header label with pulsing brand-color dot.  ║
+   ║ Use as the small uppercase tag above a headline.              ║
+   ║                                                               ║
+   ║   <span class="k-eyebrow">Expediente en vivo</span>           ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+.k-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--k-font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--k-purple);
+}
+.k-eyebrow::before {
+  content: '';
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  background: var(--k-purple);
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px var(--k-purple-soft);
+  animation: k-pulse-soft 2s ease-in-out infinite;
+}
+
+@keyframes k-pulse-soft {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.4; }
+}
+
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║ Tag label — static themed micro-label. Used for column        ║
+   ║ headers, group labels, anything that needs a small "tag"      ║
+   ║ identifier with a color hint.                                 ║
+   ║                                                               ║
+   ║   <span class="k-tag-label k-tag-label--warm">Vida del paciente</span>
+   ║                                                               ║
+   ║ Text is always muted (zinc-400); only the dot carries color.  ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+.k-tag-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--k-font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--k-ink-mute);
+}
+.k-tag-label::before {
+  content: '';
+  flex-shrink: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--k-ink-mute); /* default neutral */
+}
+.k-tag-label--agent::before    { background: var(--k-purple); }
+.k-tag-label--warm::before     { background: var(--k-status-progress-fg); }
+.k-tag-label--success::before  { background: var(--k-status-ready-fg); }
+.k-tag-label--info::before     { background: var(--k-status-sent-fg); }
+.k-tag-label--neutral::before  { background: var(--k-ink-mute); }
+
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║ Headline accent — italic + brand-purple emphasis span. Drop   ║
+   ║ inside any headline to call out a key phrase.                 ║
+   ║                                                               ║
+   ║   <h2>De la realidad clínica al expediente,                   ║
+   ║       <em class="k-headline-accent">en tiempo real.</em></h2>  ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+.k-headline-accent {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--k-purple);
+}
+
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║ Status pill — semantic state badge. Static; one variant per   ║
+   ║ state. (For cycling-through-states animations, layer multiple ║
+   ║ pills and animate opacity at the call site.)                  ║
+   ║                                                               ║
+   ║   <span class="k-status-pill k-status-pill--ready">Listo</span>
+   ╚══════════════════════════════════════════════════════════════╝ */
+.k-status-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: var(--k-radius-sm);
+  font-family: var(--k-font-mono);
+  font-size: 9px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+.k-status-pill--pending  { background: var(--k-status-pending-bg);  color: var(--k-status-pending-fg); }
+.k-status-pill--progress { background: var(--k-status-progress-bg); color: var(--k-status-progress-fg); }
+.k-status-pill--ready    { background: var(--k-status-ready-bg);    color: var(--k-status-ready-fg); }
+.k-status-pill--sent     { background: var(--k-status-sent-bg);     color: var(--k-status-sent-fg); }
+
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║ Card state modifiers — colored border + glow to communicate   ║
+   ║ a card's status visually. Apply on TOP of an existing card    ║
+   ║ class; provides border-color + box-shadow.                    ║
+   ║                                                               ║
+   ║   <div class="my-card k-card--state-ready">…</div>            ║
+   ║                                                               ║
+   ║ Note: the parent card should set its OWN base border, then    ║
+   ║ these modifiers override border-color via the cascade.        ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+.k-card--state-progress {
+  border-color: var(--k-status-progress-fg);
+  box-shadow: 0 0 0 4px var(--k-status-progress-bg),
+              0 12px 32px -12px rgba(180, 83, 9, 0.25);
+}
+.k-card--state-ready {
+  border-color: var(--k-status-ready-fg);
+  box-shadow: 0 0 0 4px var(--k-status-ready-bg),
+              0 12px 32px -12px rgba(21, 128, 61, 0.25);
+}
+.k-card--state-sent {
+  border-color: var(--k-status-sent-fg);
+  box-shadow: 0 0 0 4px var(--k-status-sent-bg),
+              0 12px 32px -12px rgba(29, 78, 216, 0.25);
+}
+
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║ Recent edit halo — purple drop-shadow flash to highlight      ║
+   ║ "what the agent just did". Two variants:                      ║
+   ║                                                               ║
+   ║   .k-recent-edit              — flashes briefly then fades    ║
+   ║                                  (good for one-off changes)   ║
+   ║   .k-recent-edit--persistent  — sustained glow while present  ║
+   ║                                  (good for "unread changes")  ║
+   ║                                                               ║
+   ║ Apply directly to the element that received the change.       ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+.k-recent-edit {
+  animation: k-recent-edit-flash 1.6s var(--k-ease-out) 2;
+}
+.k-recent-edit--persistent {
+  filter: drop-shadow(0 0 10px rgba(109, 79, 232, 0.45));
+}
+
+@keyframes k-recent-edit-flash {
+  0%   { filter: drop-shadow(0 0 0 rgba(109, 79, 232, 0)); }
+  25%  { filter: drop-shadow(0 0 16px rgba(109, 79, 232, 0.55)); }
+  100% { filter: drop-shadow(0 0 0 rgba(109, 79, 232, 0)); }
+}
+
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║ Banner — soft pill with icon + content. Used to surface a     ║
+   ║ completed or significant state to the user.                   ║
+   ║                                                               ║
+   ║   <div class="k-banner k-banner--ready">                      ║
+   ║     <div class="k-banner__icon">✓</div>                       ║
+   ║     <div>Listo para envío</div>                               ║
+   ║   </div>                                                      ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+.k-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--k-radius-md);
+}
+.k-banner__icon {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+}
+.k-banner--ready                  { background: var(--k-status-ready-bg);    color: var(--k-status-ready-fg); }
+.k-banner--ready .k-banner__icon  { background: var(--k-status-ready-fg); }
+
+.k-banner--sent                   { background: var(--k-status-sent-bg);     color: var(--k-status-sent-fg); }
+.k-banner--sent .k-banner__icon   { background: var(--k-status-sent-fg); }
+
+.k-banner--progress                  { background: var(--k-status-progress-bg); color: var(--k-status-progress-fg); }
+.k-banner--progress .k-banner__icon  { background: var(--k-status-progress-fg); }
+
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║ Field-in — entrance animation for a newly populated field /   ║
+   ║ data point. Apply when the element first appears (or use the  ║
+   ║ class on a parent that toggles on data arrival).              ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+.k-field-in {
+  animation: k-field-in 400ms var(--k-ease) both;
+}
+
+@keyframes k-field-in {
+  0%   { opacity: 0.3; transform: translateY(4px); }
+  100% { opacity: 1;   transform: translateY(0); }
+}
+
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║ Reduced motion — disable kit animations for users who opt in. ║
+   ║ Visual states still apply, motion does not.                   ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+@media (prefers-reduced-motion: reduce) {
+  .k-eyebrow::before,
+  .k-recent-edit,
+  .k-field-in {
+    animation: none !important;
+  }
+  .k-recent-edit--persistent {
+    filter: none !important;
+  }
+}
