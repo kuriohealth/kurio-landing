@@ -1,5 +1,6 @@
 ---
 import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import KurioLupa from "./KurioLupa.astro";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -10,7 +11,7 @@ const year = new Date().getFullYear();
 <footer class="py-10 px-6 border-t border-zinc-200">
   <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
     <div class="flex items-center gap-2">
-      <img src="/images/icon.png" alt="Kurio" class="h-6 w-6" />
+      <KurioLupa size={24} />
       <span class="text-sm text-zinc-500">&copy; {year} Kurio. {t("footer.rights")}</span>
     </div>
     <div class="flex items-center gap-6">

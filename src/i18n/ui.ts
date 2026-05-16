@@ -27,6 +27,8 @@ export const ui = {
       "Kurio es el agente de autorizaciones de tu hospital. Conoce los requisitos de cada aseguradora y ayuda a tu equipo a enviar cada caso correctamente desde la primera vez.",
 
     // Results
+    "results.eyebrow": "Resultados",
+    "results.title": "Lo que cambia con Kurio",
     "results.intro":
       "Los hospitales que gestionan bien sus autorizaciones reducen el tiempo entre atención y autorización, con menos fricción para todos los involucrados.",
     "results.card1.title": "Cada aseguradora pide distinto",
@@ -40,6 +42,7 @@ export const ui = {
       "Estado de cada caso, monto autorizado, ajustes y plazos de pago — sin perseguir información entre planillas.",
 
     // HowItWorks
+    "how.eyebrow": "El flujo",
     "how.title": "Cómo funciona",
     "how.subtitle":
       "Desde la organización del expediente hasta el seguimiento de la autorización, Kurio guía cada paso.",
@@ -70,6 +73,7 @@ export const ui = {
       "Kurio trabaja junto a la coordinación de seguros: organiza el expediente, verifica que todo esté en orden, envía el caso y da seguimiento hasta la autorización.",
 
     // LeadCapture
+    "lead.eyebrow": "Demo",
     "lead.title": "¿Quieres ver cómo funciona con tus propias aseguradoras?",
     "lead.subtitle":
       "Agenda una demo personalizada para tu hospital. Te mostramos cómo se ven tus aseguradoras dentro del sistema.",
@@ -101,6 +105,8 @@ export const ui = {
       "Kurio is your hospital's authorizations agent. It knows each insurer's requirements and helps your team submit every case right the first time.",
 
     // Results
+    "results.eyebrow": "Results",
+    "results.title": "What changes with Kurio",
     "results.intro":
       "Hospitals that handle authorizations well reduce the time between care and authorization, with less friction for everyone involved.",
     "results.card1.title": "Every insurer has different requirements",
@@ -114,6 +120,7 @@ export const ui = {
       "Status of every case, authorized amount, adjustments and payment timelines — without chasing information across spreadsheets.",
 
     // HowItWorks
+    "how.eyebrow": "The flow",
     "how.title": "How it works",
     "how.subtitle":
       "From organizing the case file to tracking the authorization, Kurio guides every step.",
@@ -144,6 +151,7 @@ export const ui = {
       "Kurio works alongside your insurance team: organizing the case file, verifying everything is in order, submitting the case, and tracking it through to authorization.",
 
     // LeadCapture
+    "lead.eyebrow": "Demo",
     "lead.title": "Want to see how it works with your insurers?",
     "lead.subtitle":
       "Schedule a custom demo for your hospital. We'll show you how your insurers look inside the system.",

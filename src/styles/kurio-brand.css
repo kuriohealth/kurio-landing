@@ -41,6 +41,7 @@
      useful so it interoperates naturally with utility classes.
      ──────────────────────────────────────────────────────────── */
   --k-ink:        #18181B;             /* zinc-900 — primary text         */
+  --k-ink-strong: #27272A;             /* zinc-800 — hover for ink fills  */
   --k-ink-soft:   #52525B;             /* zinc-600 — body / secondary     */
   --k-ink-mute:   #A1A1AA;             /* zinc-400 — labels / hints       */
   --k-bg:         #FFFFFF;
