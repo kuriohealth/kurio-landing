@@ -36,6 +36,12 @@
   --k-status-sent-bg:     #DBEAFE;  /* blue-100  — Enviado                */
   --k-status-sent-fg:     #1D4ED8;  /* blue-700                           */
 
+  --k-status-needs-info-bg: #F3E8FF;  /* purple-100 — Info solicitada     */
+  --k-status-needs-info-fg: #6B21A8;  /* purple-700                       */
+
+  --k-status-responded-bg:  #FFEDD5;  /* orange-100 — Respondió           */
+  --k-status-responded-fg:  #C2410C;  /* orange-700                       */
+
   /* ────────────────────────────────────────────────────────────
      Neutral — text + surfaces. Mirrors Tailwind's zinc scale where
      useful so it interoperates naturally with utility classes.
