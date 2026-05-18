@@ -28,6 +28,8 @@ When the product app (kurio-agente-autorizaciones) adopts these patterns, the sa
 | **Status — progress (amber)** | `--k-status-progress-bg`, `--k-status-progress-fg` |
 | **Status — ready (green)** | `--k-status-ready-bg`, `--k-status-ready-fg` |
 | **Status — sent (blue)** | `--k-status-sent-bg`, `--k-status-sent-fg` |
+| **Status — needs-info (purple)** | `--k-status-needs-info-bg`, `--k-status-needs-info-fg` |
+| **Status — responded (orange)** | `--k-status-responded-bg`, `--k-status-responded-fg` |
 | **Neutral / surface** | `--k-ink`, `--k-ink-strong`, `--k-ink-soft`, `--k-ink-mute`, `--k-bg`, `--k-bg-subtle`, `--k-line`, `--k-line-soft` |
 | **Typography** | `--k-font-mono` (Inter is the sans, set in Layout's `@theme`) |
 | **Motion** | `--k-ease`, `--k-ease-out`, `--k-duration-fast`, `--k-duration-base`, `--k-duration-slow` |
@@ -67,10 +69,14 @@ Italic + brand-purple emphasis. Drop inside any headline.
 ### `.k-status-pill` + variants
 Semantic state badge. Static; one variant per state.
 
-**Variants**: `--pending` (Borrador), `--progress` (En curso), `--ready` (Listo), `--sent` (Enviado).
+**Variants**: `--pending` (Borrador), `--progress` (En curso), `--ready` (Listo), `--sent` (Enviado), `--needs-info` (Info solicitada), `--responded` (Respondió).
+
+**Size modifier**: `--lg` for prominent placements (e.g. case detail header). Default size stays compact for dense surfaces like list tables.
 
 ```html
 <span class="k-status-pill k-status-pill--ready">Listo</span>
+<span class="k-status-pill k-status-pill--needs-info">Falta info</span>
+<span class="k-status-pill k-status-pill--responded k-status-pill--lg">Respondió</span>
 ```
 
 For cycling through states via animation, stack multiple pills in the same grid cell with opacity keyframes at the call site (see InAction.astro for the pattern).
@@ -112,6 +118,22 @@ Entrance animation (opacity + translateY) for newly populated data.
 
 ```html
 <div class="k-field-in">Hemograma · Eco</div>
+```
+
+### `.k-flash-success` / `.k-flash-agent`
+Background-color pulse to acknowledge a row-level event. More visible than `.k-recent-edit` on small UI like a list row because it tints the whole element's background instead of relying on a glow.
+
+- `.k-flash-success` — soft green pulse (uses `--k-status-ready-bg`). Use for "this thing just finished successfully" cues — task completed, item saved, etc.
+- `.k-flash-agent` — brand-purple pulse (uses `--k-purple-soft`). Use when the cue is *agent action* — a document was just extracted by Kurio, a field was just inferred, etc.
+
+For "the agent just edited this field" emphasis on a non-row surface, prefer `.k-recent-edit` (the drop-shadow flash).
+
+```html
+<!-- row that just finished extracting -->
+<div class="k-flash-agent">… doc row …</div>
+
+<!-- inline element confirming a save -->
+<span class="k-flash-success">Guardado</span>
 ```
 
 ### `.k-button` + variants + sizes

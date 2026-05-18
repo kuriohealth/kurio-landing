@@ -114,10 +114,21 @@
   letter-spacing: 0.1em;
   white-space: nowrap;
 }
-.k-status-pill--pending  { background: var(--k-status-pending-bg);  color: var(--k-status-pending-fg); }
-.k-status-pill--progress { background: var(--k-status-progress-bg); color: var(--k-status-progress-fg); }
-.k-status-pill--ready    { background: var(--k-status-ready-bg);    color: var(--k-status-ready-fg); }
-.k-status-pill--sent     { background: var(--k-status-sent-bg);     color: var(--k-status-sent-fg); }
+.k-status-pill--pending     { background: var(--k-status-pending-bg);    color: var(--k-status-pending-fg); }
+.k-status-pill--progress    { background: var(--k-status-progress-bg);   color: var(--k-status-progress-fg); }
+.k-status-pill--ready       { background: var(--k-status-ready-bg);      color: var(--k-status-ready-fg); }
+.k-status-pill--sent        { background: var(--k-status-sent-bg);       color: var(--k-status-sent-fg); }
+.k-status-pill--needs-info  { background: var(--k-status-needs-info-bg); color: var(--k-status-needs-info-fg); }
+.k-status-pill--responded   { background: var(--k-status-responded-bg);  color: var(--k-status-responded-fg); }
+
+/* Size modifier — slightly bigger pill for prominent placements
+   (e.g. case detail header). Default size stays compact for dense
+   surfaces like list tables. */
+.k-status-pill--lg {
+  padding: 5px 12px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+}
 
 /* ╔══════════════════════════════════════════════════════════════╗
    ║ Card state modifiers — colored border + glow to communicate   ║
@@ -220,6 +231,40 @@
 }
 
 /* ╔══════════════════════════════════════════════════════════════╗
+   ║ Flash success — soft green background pulse to acknowledge a  ║
+   ║ task completing on a row / inline element. More visible than  ║
+   ║ .k-recent-edit on small UI like a list row, because it tints  ║
+   ║ the whole row's background instead of relying on a glow.      ║
+   ║                                                               ║
+   ║ Use for "this thing just finished successfully" cues — doc    ║
+   ║ extraction done, task completed inline, etc. For "the agent   ║
+   ║ just edited this field" use .k-recent-edit (brand purple).    ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+.k-flash-success {
+  animation: k-flash-success 2.4s var(--k-ease-out);
+}
+
+@keyframes k-flash-success {
+  0%        { background-color: transparent; }
+  15%, 55%  { background-color: var(--k-status-ready-bg); }
+  100%      { background-color: transparent; }
+}
+
+/* Variant: brand-purple pulse for "the agent just finished work on this
+   row" cues (matches the KurioLupa color). Use this when the cue is
+   *agent action* rather than *generic task complete* — e.g. a document
+   was just extracted by Kurio, a field was just inferred, etc. */
+.k-flash-agent {
+  animation: k-flash-agent 2.4s var(--k-ease-out);
+}
+
+@keyframes k-flash-agent {
+  0%        { background-color: transparent; }
+  15%, 55%  { background-color: var(--k-purple-soft); }
+  100%      { background-color: transparent; }
+}
+
+/* ╔══════════════════════════════════════════════════════════════╗
    ║ Button — primary action element. Variants for emphasis,      ║
    ║ sizes for context.                                            ║
    ║                                                               ║
@@ -298,7 +343,9 @@
 @media (prefers-reduced-motion: reduce) {
   .k-eyebrow::before,
   .k-recent-edit,
-  .k-field-in {
+  .k-field-in,
+  .k-flash-success,
+  .k-flash-agent {
     animation: none !important;
   }
   .k-recent-edit--persistent {
