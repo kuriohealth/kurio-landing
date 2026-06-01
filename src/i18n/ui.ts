@@ -41,23 +41,13 @@ export const ui = {
     "results.card3.body":
       "Estado de cada caso, monto autorizado, ajustes y plazos de pago — sin perseguir información entre planillas.",
 
-    // HowItWorks
-    "how.eyebrow": "El flujo",
-    "how.title": "Cómo funciona",
-    "how.subtitle":
-      "Desde la organización del expediente hasta el seguimiento de la autorización, Kurio guía cada paso.",
-    "how.tab1.title": "Organiza el expediente",
-    "how.tab1.body":
-      "Checklist dinámico generado automáticamente según los requisitos de cada aseguradora.",
-    "how.tab2.title": "Verifica contra cada aseguradora",
-    "how.tab2.body":
-      "Kurio clasifica los documentos, extrae los datos clave y detecta lo que falta según los requisitos específicos de la aseguradora del caso.",
-    "how.tab3.title": "Envía con confianza",
-    "how.tab3.body":
-      "Confirmación de que todo está en orden antes de enviar a la aseguradora.",
-    "how.tab4.title": "Da seguimiento",
-    "how.tab4.body":
-      "Trazabilidad del estado de la autorización hasta el cobro.",
+    // PaymentPulse (live financial-visibility demo, replaces HowItWorks)
+    "pulse.eyebrow": "Visibilidad financiera",
+    "pulse.headline.lead": "Para cada expediente,",
+    "pulse.headline.middle": "ves dónde está",
+    "pulse.headline.accent": "cada centavo.",
+    "pulse.sublede":
+      "Tu agente organiza, verifica, envía y sigue cada caso. Ves dónde está cada centavo: por aseguradora, por estado, por monto.",
 
     // InAction (live agent demo between Hero and Results)
     "inaction.eyebrow": "Expediente en vivo",
@@ -119,23 +109,13 @@ export const ui = {
     "results.card3.body":
       "Status of every case, authorized amount, adjustments and payment timelines — without chasing information across spreadsheets.",
 
-    // HowItWorks
-    "how.eyebrow": "The flow",
-    "how.title": "How it works",
-    "how.subtitle":
-      "From organizing the case file to tracking the authorization, Kurio guides every step.",
-    "how.tab1.title": "Organize the case file",
-    "how.tab1.body":
-      "Dynamic checklist auto-generated from each insurer's requirements.",
-    "how.tab2.title": "Verifies against each insurer",
-    "how.tab2.body":
-      "Kurio classifies documents, extracts key data, and flags what's missing based on the specific requirements of the insurer for each case.",
-    "how.tab3.title": "Submit with confidence",
-    "how.tab3.body":
-      "Confirmation that everything is in order before sending to the insurer.",
-    "how.tab4.title": "Track it",
-    "how.tab4.body":
-      "Traceability from authorization status all the way to reimbursement.",
+    // PaymentPulse (live financial-visibility demo, replaces HowItWorks)
+    "pulse.eyebrow": "Financial visibility",
+    "pulse.headline.lead": "For every case file,",
+    "pulse.headline.middle": "you see where",
+    "pulse.headline.accent": "every cent is.",
+    "pulse.sublede":
+      "Your agent organizes, verifies, submits and follows every case. You see where every cent is: by insurer, by state, by amount.",
 
     // InAction (live agent demo between Hero and Results)
     "inaction.eyebrow": "Live case file",
