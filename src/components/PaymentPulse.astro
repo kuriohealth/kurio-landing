@@ -730,13 +730,149 @@ const t = useTranslations(lang);
     100%    { opacity: 0; }
   }
 
-  /* === Mobile + reduced motion =========================================== */
+  /* === Mobile ===========================================================
+     Keep 5 columns horizontal so the full flow stays visible. Everything
+     scales down: tighter padding, smaller pill text (wraps to 2 lines for
+     long labels), smaller count, smaller fajo/coins/airplane. The
+     value-bars get dropped (too narrow at this width to read), so the
+     focus is on the column → folder → coin burst story. */
   @media (max-width: 720px) {
-    .pulse-header { flex-direction: column; gap: 16px; }
-    .pulse-sublede { text-align: left; max-width: 100%; }
-    .pulse-stages { grid-template-columns: 1fr; min-height: auto; gap: 10px; }
-    .pulse-folder, .pulse-coin-burst, .pulse-bar-floater, .pulse-airplane { display: none; }
+    .pulse-section { padding: 48px 12px; }
+    .pulse-header { flex-direction: column; gap: 12px; }
+    .pulse-sublede { text-align: left; max-width: 100%; font-size: 13px; }
+
+    .pulse-stage { padding: 16px 10px 20px; }
+
+    /* Chips compact */
+    .pulse-chips { gap: 4px; margin-bottom: 16px; }
+    .pulse-chip { font-size: 10px; padding: 3px 8px; }
+
+    /* Still 5 columns horizontal. Explicit min-height: 0 to OVERRIDE
+       the base rule's min-height: 240px (which was bleeding through
+       and making columns artificially tall on mobile). With min-height
+       cleared, the grid stretches columns only to the tallest natural
+       content (Esperando's 2-line pill makes it the tallest at ~115px).
+       Folder lifts are smaller now (~12-23px instead of ~32-50px on
+       desktop) but still readable. */
+    .pulse-stages {
+      grid-template-columns: repeat(5, 1fr);
+      gap: 4px;
+      min-height: 0;
+    }
+    .pulse-col {
+      padding: 8px 4px 10px;
+    }
+    /* Pill text wraps to 2 lines when needed ("Esperando info" becomes
+       Esperando / info). letter-spacing trimmed so it fits visually. */
+    .pulse-col .k-status-pill {
+      font-size: 8px;
+      padding: 2px 4px;
+      letter-spacing: 0.04em;
+      white-space: normal;
+      line-height: 1.15;
+      margin-bottom: 6px;
+      text-align: center;
+    }
+    .pulse-count {
+      font-size: 18px;
+      margin-bottom: 2px;
+    }
+    .pulse-count-label {
+      font-size: 7px;
+      margin-bottom: 6px;
+      letter-spacing: 0.08em;
+    }
+
+    /* Hide bars — too narrow at this column width to be meaningful */
+    .pulse-bar-row { display: none; }
+
+    /* Folder slot trimmed so the column rows align */
+    .pulse-folder-slot { width: 28px; height: 32px; }
+
+    /* Fajo scales down (was 44x52, now 30x36) so it fits in the narrow
+       columns without covering the count number above it.
+       margin-top shifts the whole flight down ~22px so the fajo lands
+       on the folder-slot area instead of overlapping the count + label
+       (which happens because the column is shorter on mobile, so the
+       keyframe's `top: 50%` lands the fajo higher than the folder-slot). */
+    .pulse-folder {
+      width: 30px;
+      height: 36px;
+      margin-top: 22px;
+    }
+    .pulse-doc {
+      width: 22px; height: 28px;
+      border-radius: 3px;
+    }
+    .pulse-doc--back  { top: 4px; left: 6px; }
+    .pulse-doc--mid   { top: 2px; left: 3px; }
+    .pulse-doc--front {
+      padding: 3px;
+      gap: 2px;
+    }
+    .pulse-doc--front::before {
+      width: 10px;
+      margin-bottom: 1px;
+    }
+    /* "?" tag scales with the fajo */
+    .pulse-folder-tag {
+      width: 14px; height: 14px;
+      font-size: 9px;
+      top: -5px; right: -7px;
+    }
+
+    /* Coin burst — smaller coins, tighter fan-out distances */
+    .pulse-coin {
+      width: 18px; height: 18px;
+      margin: -9px 0 0 -9px;
+      font-size: 9px;
+    }
+    /* Compress coin fly-out distances so they don't shoot off-screen
+       to the right (Cerrado column is at 90% — only ~30px of space
+       before the stage edge). */
+    @keyframes coin1 {
+      0%, 48% { opacity: 0; transform: scale(0.4) translate(0, 0); }
+      50%     { opacity: 1; transform: scale(1.1) translate(0, 0); }
+      53%     { opacity: 1; transform: scale(1) translate(4px, -6px); }
+      58%     { opacity: 0; transform: scale(0.7) translate(14px, -22px); }
+      100%    { opacity: 0; }
+    }
+    @keyframes coin2 {
+      0%, 49% { opacity: 0; transform: scale(0.4) translate(0, 0); }
+      51%     { opacity: 1; transform: scale(1.1) translate(0, 0); }
+      54%     { opacity: 1; transform: scale(1) translate(-1px, -8px); }
+      60%     { opacity: 0; transform: scale(0.7) translate(-4px, -26px); }
+      100%    { opacity: 0; }
+    }
+    @keyframes coin3 {
+      0%, 50% { opacity: 0; transform: scale(0.4) translate(0, 0); }
+      52%     { opacity: 1; transform: scale(1.1) translate(0, 0); }
+      55%     { opacity: 1; transform: scale(1) translate(8px, -2px); }
+      62%     { opacity: 0; transform: scale(0.7) translate(20px, -12px); }
+      100%    { opacity: 0; }
+    }
+
+    /* Airplane + coin burst share the fajo's vertical anchoring at the
+       Enviado / Cerrado columns, so they need the same margin-top
+       offset to stay aligned with the fajo on mobile. */
+    .pulse-airplane {
+      width: 20px; height: 20px;
+      margin-top: 22px;
+    }
+    .pulse-coin-burst {
+      margin-top: 22px;
+    }
+    @keyframes airplaneFire {
+      0%, 24% { opacity: 0; transform: translate(0, 6px) scale(0.5) rotate(-25deg); }
+      26%     { opacity: 1; transform: translate(0, 0) scale(1) rotate(-10deg); }
+      28%     { opacity: 1; transform: translate(1px, -3px) scale(1.05) rotate(0deg); }
+      30%     { opacity: 0.85; transform: translate(15px, -18px) scale(0.95) rotate(15deg); }
+      33%     { opacity: 0; transform: translate(36px, -40px) scale(0.7) rotate(30deg); }
+      100%    { opacity: 0; }
+    }
   }
+
+  /* === Reduced motion =================================================== */
   @media (prefers-reduced-motion: reduce) {
     .pulse-section *, .pulse-section *::before {
       animation: none !important; transition: none !important;
